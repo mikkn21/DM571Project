@@ -1,5 +1,5 @@
 from datetime import datetime
-from enum_show_type import Show
+from .enum_show_type import Show
 
 class Show:
     def __init__(self, title: str, type: Show, _from: datetime, _to: datetime, id: int):

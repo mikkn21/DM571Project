@@ -3,6 +3,7 @@ from typing import List, Dict
 from datetime import datetime
 from .enum_group import Group
 from .shift import Shift
+from .schedule import Schedule
 
 class Member:
     def __init__(self, name: str):
