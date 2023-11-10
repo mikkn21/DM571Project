@@ -10,6 +10,7 @@ def index(request):
         Shift(1, datetime.now(), datetime.now(), [], enum_group.Group.PR, False),
         Shift(2, datetime.now(), datetime.now(), [], enum_group.Group.CLEANING, False),
         Shift(3, datetime.now(), datetime.now(), [], enum_group.Group.SALES, False),
+        # Show("Barbie", ShowType.EVENT, datetime.now(), datetime.now(), 1)
         Shift(4, datetime.now(), datetime.now(), [], enum_group.Group.TECHNICAL, False),
         Shift(5, datetime.now(), datetime.now(), [], enum_group.Group.FACILITY_SERVICE, False),
     ]}
