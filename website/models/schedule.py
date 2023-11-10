@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import List
-from shift import Shift
-from show import Show
+from .shift import Shift
+from .show import Show
 
 class Schedule:
     def __init__(self, _from: datetime, _to: datetime, shows: List[Show], shifts: List[Shift]):
