@@ -1,12 +1,14 @@
 from typing import List, Dict
 from datetime import datetime
+from hashlib import _Hash, sha256
 from .enum_group import GroupType
 from .schedule import Schedule
 
 class Member:
-    def __init__(self, name: str):
+    def __init__(self, name: str, password: str):
         self.id: int = self.create_id()
         self.name: str = name
+        self.password: _Hash = sha256(password.encode()).public_encoding
         self.hiring_date: datetime = datetime.now()
         self.obtained_free_tickets: int = 0
         self.groups: List[GroupType] = []
