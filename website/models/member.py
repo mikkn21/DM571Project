@@ -53,5 +53,6 @@ class Member:
     
     def get_full_schedule(self, _from: datetime, to: datetime) -> Schedule:
         pass
+    
     def get_own_schedule(self, _from: datetime, to: datetime)  -> Schedule:
         pass
