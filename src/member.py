@@ -1,7 +1,7 @@
 from typing import Optional
 from typing import List, Dict
 from datetime import datetime
-from src.enum_group import Group
+from enum_group import Group
 
 class Member:
     def __init__(self, name: str):

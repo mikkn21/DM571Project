@@ -1,8 +1,7 @@
 from typing import List
 from datetime import datetime
-from src.enum_group import Group
-
-from src.member import Member
+from enum_group import Group
+from member import Member
 
 
 class Shift:
