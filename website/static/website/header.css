@@ -6,6 +6,9 @@ nav {
 }
 
 header {
+    display:flex;
+    flex-direction: row;
+    gap: 20px;
     background-color: var(--bg1);
     font-size: 1.5rem;
     padding: 10px;
