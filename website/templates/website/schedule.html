@@ -12,9 +12,10 @@
         {% for i in arr %}
             <li>{{ i }}</li>
         {% endfor %}
+        {% for shift_or_show in shifts_and_shows %}
         <div class="schedule-item">
-            <p>Shift</p>
-            <p>{{ shift.id }}</p>
+            <p class="schedule-item-type">Shift</p>
+            <p>shift.title</p>
         </div>
     </ul>
     <p>hello world</p>
