@@ -1,8 +1,6 @@
-from typing import Optional
 from typing import List, Dict
 from datetime import datetime
-from .enum_group import Group
-from .shift import Shift
+from .enum_group import GroupType
 from .schedule import Schedule
 
 class Member:
@@ -11,8 +9,8 @@ class Member:
         self.name: str = name
         self.hiring_date: datetime = datetime.now()
         self.obtained_free_tickets: int = 0
-        self.groups: List[Group] = []
-        self.shifts_completed: Dict[int] = {group: 0 for group in Group}
+        self.groups: List[GroupType] = []
+        self.shifts_completed: Dict[int] = {group_type: 0 for group_type in GroupType}
 
 
     def get_free_tickets_remaining_count(self) -> int:
@@ -22,10 +20,10 @@ class Member:
         pass
 
 
-    def book_shift(self, shift: Shift):
+    def book_shift(self, shift: "Shift"):
         pass
 
-    def cancel_shift(self, shift: Shift) -> bool:
+    def cancel_shift(self, shift: "Shift") -> bool:
         pass
     
     def get_full_schedule(self, _from: datetime, to: datetime) -> Schedule:

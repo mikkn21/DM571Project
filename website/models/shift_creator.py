@@ -1,6 +1,4 @@
-
-
-from shift import Shift
+from .shift import Shift
 
 
 class ShiftCreator:

@@ -1,4 +1,4 @@
-from shift_creator import ShiftCreator
+from .shift_creator import ShiftCreator
 
 class AutomaticScheduler(ShiftCreator):
     def __init__(self, shiftcreator: ShiftCreator):
