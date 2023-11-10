@@ -9,3 +9,6 @@ def index(request):
 def test(request):
     return HttpResponse("test")
 
+def login_page(request):
+    return HttpResponse(render(request, "website/login.html"))
+
