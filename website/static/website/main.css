@@ -1,0 +1,20 @@
+:root {
+    --bg: #282828;
+    --bg1: #1d2021;
+    --text: #eddbb2; 
+    --orange: #d65d0e; 
+    --green: #98971a;
+    --blue: #458588;
+    --red: #cc241d;
+    --gray: #a89984;
+}
+
+html,body {
+    background-color: var(--bg);
+    color: var(--text);
+    margin: 0;
+    padding: 0;
+}
+
+
+

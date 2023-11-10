@@ -1,0 +1,27 @@
+nav {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;    
+}
+
+header {
+    background-color: var(--bg1);
+    font-size: 1.5rem;
+    padding: 10px;
+    margin: 0;
+}
+
+nav a {
+    text-decoration: none; /* Remove default underline */
+    color: var(--text);
+    transition: color 0.3s; 
+}
+
+nav a:hover {
+    color: var(--orange);
+}
+
+.navitem {
+    align-self: flex-start;
+}
