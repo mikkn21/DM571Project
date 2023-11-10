@@ -1,0 +1,28 @@
+{% extends 'website/base.html' %}
+{% load static %}
+
+{% block title %} Test {% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'website/test.css' %}" />
+{% endblock %}
+
+{% block content %}
+<h1>Test page</h1>
+<h3>This is ment to be the admin page for supers with a 2-column view, where the left-column is buttons for admin options and the right-column is the content (i.e., users or whatever).</h3>
+<h3>The css sheet won't link correctly to this page</h3>
+
+<main>
+    <options>
+        <ul>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+        </ul>
+    </options>
+    <content>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Obcaecati iure facere nemo est veniam deleniti accusantium vel sed, accusamus odio corporis sequi repellendus, incidunt aliquam soluta harum eligendi! Nostrum, nemo?
+    </content>
+ </main>
+
+{% endblock %}

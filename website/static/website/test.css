@@ -1,0 +1,10 @@
+main {
+    display: grid;
+    grid-template-columns: 1fr 2fr; 
+    gap: 16px; 
+}
+
+h1 {
+    font-size: 5rem;
+    color: red;
+}

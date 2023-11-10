@@ -26,3 +26,6 @@ def supers(request):
 def login_page(request):
     return HttpResponse(render(request, "website/login.html"))
 
+def test(request):
+    return HttpResponse(render(request, "website/test.html"))
+

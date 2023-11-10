@@ -22,12 +22,17 @@
                 <a href="/supers">Super</a>
             </div>
             <div class = "navitem">
-                <a href="/">Admin</a>
+                <a href="/test">Admin</a>
             </div>
         </nav>
-        <userinfo>
-            userinfo
-        </userinfo>
+        <div class="dropdown">
+            <button class="dropbtn">UserInfo
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+              <a href="/login">Log out</a>
+            </div>
+        </div>
     </header>
     {% block content %}{% endblock %}
     <footer>
