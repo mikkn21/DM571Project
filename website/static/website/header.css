@@ -5,6 +5,10 @@ nav {
     gap: 10px;    
 }
 
+logo {
+    color: var(--yellow);
+}
+
 header {
     display:flex;
     flex-direction: row;

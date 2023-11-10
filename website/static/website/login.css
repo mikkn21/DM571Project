@@ -3,16 +3,24 @@ input[type=text], input[type=password] {
     padding: 12px 20px;
     margin: 8px 0;
     display: inline-block;
-    border: 1px solid #ccc;
+    color: var(--text);
+    background-color: var(--bg);
+    border: none;
+    border-bottom: 1px solid var(--gray);
+    transition: border-bottom 0.3s;
     box-sizing: border-box;
   }
+
+input[type=text]:hover , input[type=password]:hover {
+    border-color: var(--text);
+}
 
 .container {
     display:grid;
     grid-template-columns: 1fr;
     gap: 15px;
     padding: 16px;
-    border: 3px solid black;
+    border: 3px solid var(--gray);
     width: 50vw;
   }
 
@@ -25,10 +33,20 @@ button {
     padding: 12px 20px;
     font-size: 1rem;
     margin: auto;
+    border: 1px solid var(--gray);
+    background-color: var(--bg);
+    color: var(--orange);
+    transition: 0.3s;
+}
+
+button:hover {
+    color: var(--text);
+    background-color: var(--orange);
+    border-color: var(--orange);
 }
 
 label {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
 }
 
 .info {
