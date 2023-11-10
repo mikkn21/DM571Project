@@ -1,24 +1,20 @@
+{% extends 'website/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VagtPlan Schedule</title>
-    <link rel="stylesheet" href="{% static 'website/schedule.css' %}"
-</head>
-<body>
+
+{% block title %} Schedule {% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'website/schedule.css' %}" />
+{% endblock %}
+
+{% block content %}
     <ul>
-        {% for i in arr %}
-            <li>{{ i }}</li>
-        {% endfor %}
         {% for shift_or_show in shifts_and_shows %}
         <div class="schedule-item">
             <p class="schedule-item-type">Shift</p>
-            <p>shift_or_show.title</p>
+        <p>{{ shift_or_show.title }}</p>
         </div>
         {% endfor %}
     </ul>
     <p>hello world</p>
-</body>
-</html>
+{% endblock %}

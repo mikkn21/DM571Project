@@ -6,7 +6,7 @@ from .models import *
 
 # Create your views here.
 def index(request):
-    context = {"shift_and_shows": [
+    context = {"shifts_and_shows": [
         Shift(1, datetime.now(), datetime.now(), [], GroupType.PR, False),
         Shift(2, datetime.now(), datetime.now(), [], GroupType.CLEANING, False),
         Shift(3, datetime.now(), datetime.now(), [], GroupType.SALES, False),
@@ -18,8 +18,8 @@ def index(request):
     ]}
     return HttpResponse(render(request, "website/schedule.html", context))
 
-def test(request):
-    return HttpResponse("test")
+def supers(request):
+    return HttpResponse(render(request, "website/supers.html"))
 
 def login_page(request):
     return HttpResponse(render(request, "website/login.html"))
