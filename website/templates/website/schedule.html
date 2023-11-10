@@ -8,13 +8,26 @@
 {% endblock %}
 
 {% block content %}
-    <ul>
-        {% for shift_or_show in shifts_and_shows %}
-        <div class="schedule-item">
-            <p class="schedule-item-type">Shift</p>
-        <p>{{ shift_or_show.title }}</p>
+    <div id="schedule-container">
+        {% for is_shift, shift_or_show in shifts_and_shows %}
+        <div class="schedule-item schedule-item-{% if is_shift %}shift{% else %}show{% endif %}">
+            <p class="schedule-item-type">
+                {% if is_shift %}
+                    Shift
+                {% else %}
+                    Show
+                {% endif %}
+            </p>
+            <p class="schedule-item-title">
+                {% if is_shift %}
+                    {{ shift_or_show.group.name }}
+                {% else %}
+                    {{ shift_or_show.title }}
+                {% endif %}
+            </p>
+            <p class="schedule-item-capacity">{{ shift_or_show.member_capacity }}</p>
         </div>
         {% endfor %}
-    </ul>
+    </div>
     <p>hello world</p>
 {% endblock %}
