@@ -1,4 +1,4 @@
-from website.models.database import Database
+from website.models.database import Database, Condition
 from website.models.show import Show
 from website.models.enum_show_type import ShowType
 from datetime import datetime
@@ -14,11 +14,11 @@ def database_test():
 
 
     print([k.id for k in db._data["shows"]])
-    db.delete("shows", {"id": 2})
+    db.delete("shows", [Condition("id", 2)])
 
     print([k.id for k in db._data["shows"]])
 
-    print([s.id for s in db.get("shows", {"title": "w", "show_type": ShowType.EVENT})])
+    print([s.id for s in db.get("shows", [Condition("title", "w"), Condition("show_type", ShowType.EVENT)])])
 
 #    print([k.id for k in db._data["shows"]])
 
