@@ -29,7 +29,7 @@ class Member:
         return self.next_id
 
     def book_shift(self, shift_id: int):
-        shift = self.db.get("shift", Condition("id", shift_id))
+        shift = self.db.get("shift", [Condition("id", shift_id)])
         if len(shift.booked_members) >= shift.member_capacity:
             raise ExceedingCapacityException("Max capacity of members already reached, booking denied")
         elif shift.group not in self.groups: 
@@ -40,19 +40,29 @@ class Member:
             raise OutdatedActionException("Member attempted to book a shift that is too old")
         else: 
             shift.booked_members.append(self.id)
-            self.db.update("shift", Condition("id", shift.id), {"booked_members": shift.booked_members})
+            self.db.update("shift", [Condition("id", shift.id)], {"booked_members": shift.booked_members})
 
     def cancel_shift(self, shift_id: int):
-        shift = self.db.get("shift", {"id": shift_id})
-        if shift._to < datetime.now() - timedelta(days=7):
+        shift = self.db.get("shift", [Condition("id", shift_id)])
+        if shift.end_date < datetime.now() - timedelta(days=7):
             raise OutdatedActionException("Member attempted to cancel a shift that is either too old or within a week")
         elif shift.group not in self.groups: 
             raise InvalidGroupException("Member attempted to cancel a shift for a group they are not a part of")
         else:
-            self.db.update("shift", Condition("id", shift.id), {"booked_members": shift.booked_members.remove(self.id)})
+            self.db.update("shift", [Condition("id", shift.id)], {"booked_members": shift.booked_members.remove(self.id)})
     
-    def get_full_schedule(self, _from: datetime, to: datetime) -> Schedule:
-        pass
+    def get_full_schedule(self, start_date: datetime, end_date: datetime) -> Schedule:
+        if start_date > end_date:
+            raise ValueError("Invalid date times")
+        shifts: List["Shift"] = self.db.get("shift", [Condition("start_date", start_date, lambda x, y: x > y), Condition("end_date", end_date, lambda x, y: x < y)])
+        shows: List["Show"] = self.db.get("Show", [Condition("start_date", start_date, lambda x, y: x > y), Condition("end_date", end_date, lambda x, y: x < y)])
+        
     
-    def get_own_schedule(self, _from: datetime, to: datetime)  -> Schedule:
-        pass
+    def get_own_schedule(self, start_date: datetime, end_date: datetime)  -> Schedule:
+        if start_date > end_date:
+            raise ValueError("Invalid date times")
+        shifts: List["Shift"] = self.db.get("shift", 
+                                            [Condition("start_date", start_date, lambda x, y: x > y),
+                                             Condition("end_date", end_date, lambda x, y: x < y),
+                                             Condition("id", self.id)
+                                             ])
