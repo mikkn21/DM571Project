@@ -20,12 +20,12 @@ def index(request):
     context = {"shifts_and_shows": shifts_and_shows}
     return HttpResponse(render(request, "website/schedule.html", context))
 
-def supers(request):
-    return HttpResponse(render(request, "website/supers.html"))
+def about_supers(request):
+    return HttpResponse(render(request, "website/about_supers.html"))
 
 def login_page(request):
     return HttpResponse(render(request, "website/login.html"))
 
-def test(request):
-    return HttpResponse(render(request, "website/test.html"))
+def super(request):
+    return HttpResponse(render(request, "website/super.html"))
 
