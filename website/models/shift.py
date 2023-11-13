@@ -4,7 +4,7 @@ from .enum_group import GroupType
 from .member import Member
 
 class Shift:
-    def __init__(self, id: int, start_date: datetime, end_date: datetime, booked_members: List['Member'], group: GroupType, is_super: bool, member_capacity: int):
+    def __init__(self, id: int, start_date: datetime, end_date: datetime, booked_members: List[int], group: GroupType, is_super: bool, member_capacity: int):
         self.id: int = id
         self.start_date: datetime = start_date
         self.end_date: datetime = end_date
