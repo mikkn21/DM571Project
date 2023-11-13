@@ -36,3 +36,9 @@ def login_page(request):
 def super(request):
     return HttpResponse(render(request, "website/super.html"))
 
+def create_user(request):
+    return HttpResponse(render(request, "website/create_user.html"))
+
+def create_show(request):
+    return HttpResponse(render(request, "website/create_show.html"))
+
