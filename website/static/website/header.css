@@ -19,16 +19,13 @@ header {
     margin: 0;
 }
 
-
-
-
 .dropdown {
     margin-left: auto;
     float: left;
     overflow: hidden;
   }
 
-  .dropdown .dropbtn {
+.dropdown .dropbtn {
     font-size: inherit;
     border: none;
     outline: none;
@@ -39,7 +36,7 @@ header {
     margin: 0; 
   }
 
-  /* Dropdown content (hidden by default) */
+
 .dropdown-content {
     display: none;
     position: absolute;
