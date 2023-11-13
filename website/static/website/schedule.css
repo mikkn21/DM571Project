@@ -1,5 +1,13 @@
 
-li {
-    color: green;
+.schedule-item-shift {
+    background-color: var(--green);
+}
+
+.schedule-item-shift .schedule-item-shift-full {
+    background-color: var(--orange);
+}
+
+.schedule-item-show {
+    background-color: var(--blue);
 }
 
