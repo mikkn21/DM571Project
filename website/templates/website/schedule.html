@@ -3,7 +3,7 @@
 
 {% block title %} Schedule {% endblock %}
 
-{% block style %}
+{% block styles %}
     <link rel="stylesheet" href="{% static 'website/schedule.css' %}" />
 {% endblock %}
 
@@ -18,14 +18,18 @@
                     Show
                 {% endif %}
             </p>
+            <p class="schedule-item-time">
+                {{ shift_or_show.start_date_hour_min }}
+                -
+                {{ shift_or_show.end_date_hour_min }}
+            </p>
             <p class="schedule-item-title">
                 {% if is_shift %}
-                    {{ shift_or_show.group.name }}
+                    {{ shift_or_show.group.name }} - {{ shift_or_show.booked_members_count }}/{{ shift_or_show.member_capacity }}
                 {% else %}
                     {{ shift_or_show.title }}
                 {% endif %}
             </p>
-            <p class="schedule-item-capacity">{{ shift_or_show.member_capacity }}</p>
         </div>
         {% endfor %}
     </div>

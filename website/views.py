@@ -16,6 +16,13 @@ def index(request):
         Shift(5, datetime.now(), datetime.now(), [], GroupType.FACILITY_SERVICE, False, 3),
         Show("The Adventures of Slaub", ShowType.EVENT, datetime.now(), datetime.now(), 3),
     ]
+
+    for shift_or_show in shifts_and_shows:
+        shift_or_show.start_date_hour_min = shift_or_show.start_date.strftime("%H:%M")
+        shift_or_show.end_date_hour_min = shift_or_show.end_date.strftime("%H:%M")
+        if isinstance(shift_or_show, Shift):
+            shift_or_show.booked_members_count = len(shift_or_show.booked_members)
+
     shifts_and_shows = [(isinstance(shift_or_show, Shift), shift_or_show) for shift_or_show in shifts_and_shows] # map list to (is_shift, shift_or_show)
     context = {"shifts_and_shows": shifts_and_shows}
     return HttpResponse(render(request, "website/schedule.html", context))
