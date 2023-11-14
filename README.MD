@@ -1,6 +1,7 @@
-# Dependencies
-python=3.11
-bcrypt=4.0.1
+# Install Dependencies
+```
+pip install -r requirements.txt
+```
 
 # TODO: database
 - we need to make sure that members, shifts and shows, gets an id base on the online database. 
