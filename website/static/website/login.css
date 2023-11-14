@@ -7,7 +7,7 @@ input[type=text], input[type=password] {
     background-color: var(--bg);
     border: none;
     border-bottom: 1px solid var(--gray);
-    transition: border-bottom 0.3s;
+    transition: border-bottom 0.2s;
     box-sizing: border-box;
   }
 
