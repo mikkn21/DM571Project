@@ -16,7 +16,7 @@ python manage.py test
 
 # Run specific test
 ```
-python manage.py test tests.test_models
+python manage.py test website.tests.test_models
 ```
 
 
