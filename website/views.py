@@ -36,6 +36,23 @@ def login_page(request):
 def super(request):
     return HttpResponse(render(request, "website/super.html"))
 
+def process_login(request):
+    if request.method == 'POST':
+        username = request.POST.get('uname')
+        password = request.POST.get('psw')
+
+        # Check if the username and password are 'admin'
+        if username == 'admin' and password == 'admin':
+            # Display the input
+            return render(request, 'website/test.html', {'username': username, 'password': password})
+        else:
+            # Display 'Wrong input'
+            return render(request, 'website/test.html', {'username': "WRONG", 'password': "WRONG"})
+
+
+    # Handle GET requests or other cases
+    return render(request, 'website/login.html')
+
 def create_user(request):
     return HttpResponse(render(request, "website/create_user.html"))
 
