@@ -14,6 +14,11 @@ pip install -r requirements.txt
 python manage.py test
 ```
 
+# Run specific test
+```
+python manage.py test your_app_directory.tests.test_models
+```
+
 
 # Checking Test Coverage
 ```
