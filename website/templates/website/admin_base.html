@@ -1,0 +1,28 @@
+{% extends 'website/base.html' %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'website/admin_base.css' %}" />
+{% block admin_styles %} {% endblock %}
+{% endblock %}
+
+{% block content %}
+    <div class = "sidepanel">
+        <div class = "sidepanel-options" >
+            <a href='/super'>
+                <button>List Users</button>
+              </a>
+              <a href='/create_user'>
+                 <button>Create User</button>
+              </a>
+              <a href='/create_show'>
+                <button>Create Show</button>
+              </a>
+        </div>
+        <div class = "sidepanel-content">
+            <main>
+                {% block admin_content %}{% endblock %}
+            </main>
+        </div>
+{% endblock %}
+</html>
