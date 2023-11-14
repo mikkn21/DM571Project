@@ -11,7 +11,7 @@ pip install -r requirements.txt
 
 # Run Test
 ```
-python manage.py test
+python manage.py test website
 ```
 
 # Run specific test
