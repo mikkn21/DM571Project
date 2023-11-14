@@ -7,7 +7,9 @@ pip install -r requirements.txt
 # TODO: database
 - we need to make sure that members, shifts and shows, gets an id base on the online database. 
 
-
+# How to make test
+Make a file in the website/tests folder and it will be run by the tests.
+You are allowed to make subdirectories and make test in them too, as long as you also add an __init__.py file in that directory. 
 
 # Run Test
 ```
