@@ -16,7 +16,7 @@ python manage.py test
 
 # Run specific test
 ```
-python manage.py test your_app_directory.tests.test_models
+python manage.py test tests.test_models
 ```
 
 
