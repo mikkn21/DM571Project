@@ -17,8 +17,7 @@
                 {% else %}
                     Show
                 {% endif %}
-            </p>
-            <p class="schedule-item-time">
+                : 
                 {{ shift_or_show.start_date_hour_min }}
                 -
                 {{ shift_or_show.end_date_hour_min }}
@@ -30,6 +29,9 @@
                     {{ shift_or_show.title }}
                 {% endif %}
             </p>
+            {% if shift_or_show.is_bookable %}
+            <button>Book</button>
+            {% endif %}
         </div>
         {% endfor %}
     </div>

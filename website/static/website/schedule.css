@@ -1,4 +1,22 @@
 
+#schedule-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    place-items: center;
+    gap: 20px;
+    margin: 40px 0;
+}
+
+.schedule-item {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    width: min(100vw, 500px);
+    border-radius: 5px;
+    font-size: 1.2rem;
+    padding-bottom: 5px;
+}
+
 .schedule-item-shift {
     background-color: var(--green);
 }
@@ -9,5 +27,14 @@
 
 .schedule-item-show {
     background-color: var(--blue);
+}
+
+.schedule-item-type {
+    display: inline-block;
+    margin: 0;
+    padding: 5px;
+    border-radius: 0 0 5px 5px;
+
+    background-color: var(--bg1);
 }
 

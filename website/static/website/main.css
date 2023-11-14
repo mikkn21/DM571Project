@@ -35,6 +35,7 @@ button {
     background-color: var(--bg);
     color: var(--orange);
     transition: 0.3s;
+    border-radius: 5px;
 }
 
 button:hover {

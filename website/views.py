@@ -22,6 +22,7 @@ def index(request):
         shift_or_show.end_date_hour_min = shift_or_show.end_date.strftime("%H:%M")
         if isinstance(shift_or_show, Shift):
             shift_or_show.booked_members_count = len(shift_or_show.booked_members)
+            shift_or_show.is_bookable = True
 
     shifts_and_shows = [(isinstance(shift_or_show, Shift), shift_or_show) for shift_or_show in shifts_and_shows] # map list to (is_shift, shift_or_show)
     context = {"shifts_and_shows": shifts_and_shows}
