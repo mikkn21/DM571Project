@@ -1,0 +1,18 @@
+.sidepanel {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px; 
+}
+
+.sidepanel-options {
+    display: flex;
+    flex-flow: row wrap; 
+    gap: 30px;
+    padding: 10px 0px;
+    border-top: 1px solid var(--yellow);
+    background-color: var(--bg1);
+    justify-content: center;
+}
+
+
+

@@ -1,29 +1,14 @@
-{% extends 'website/base.html' %}
+{% extends 'website/admin_base.html' %}
 {% load static %}
 
 {% block title %} Admin {% endblock %}
 
-{% block styles %}
+{% block admin_styles %}
     <link rel="stylesheet" href="{% static 'website/super.css' %}" />
 {% endblock %}
 
-{% block content %}
-<div class = "sidepanel">
-    <div class = "sidepanel-options" >
-        <a href='/super'>
-            <button>List Users</button>
-          </a>
-          <a href='/create_user'>
-             <button>Create User</button>
-          </a>
-          <a href='/create_show'>
-            <button>Create Show</button>
-          </a>
-    </div>
-    <div class = "sidepanel-content">
-        <h2>Probably make this page the list users, then make new pages for create user/show</h2>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Obcaecati iure facere nemo est veniam deleniti accusantium vel sed, accusamus odio corporis sequi repellendus, incidunt aliquam soluta harum eligendi! Nostrum, nemo?
-    </div>
-</div>
+{% block admin_content %}
+<h2>Probably make this page the list users, then make new pages for create user/show</h2>
+Lorem ipsum dolor, sit amet consectetur adipisicing elit. Obcaecati iure facere nemo est veniam deleniti accusantium vel sed, accusamus odio corporis sequi repellendus, incidunt aliquam soluta harum eligendi! Nostrum, nemo?
 
 {% endblock %}
