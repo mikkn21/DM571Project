@@ -1,4 +1,5 @@
 # Install Dependencies
+Use python version 3.11, and then execute the below command:
 ```
 pip install -r requirements.txt
 ```
