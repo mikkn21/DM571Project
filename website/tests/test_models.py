@@ -1,19 +1,19 @@
 from django.test import TestCase
-from ..models import Database, Condition
+from ..models.database import Database, Condition
 from ..models.member import Member
 from ..models.shift import Shift
 
 class DatabaseTestCase(TestCase):
     def setUp(self):
         self.db = Database()
-        self.db.insert('members', Member('Alice'))
-        self.db.insert('members', Member('Bob'))
+        self.db.insert('members', Member("Malthe", "lmao", self.db))
+        self.db.insert('members', Member("Sofus", "123", self.db))
 
     def test_insert(self):
         self.assertEqual(len(self.db._data['members']), 2)
 
     def test_delete(self):
-        condition = Condition(key='name', value='Alice')
+        condition = Condition(key='name', value='Sofus')
         self.db.delete('members', [condition])
         self.assertEqual(len(self.db._data['members']), 1)
 
