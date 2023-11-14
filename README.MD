@@ -22,11 +22,6 @@ python manage.py test website.tests.test_models
 ```
 
 
-# Checking Test Coverage
-```
-coverage run --source='.' manage.py test
-```
-
 # To view the coverage report
 ```
 coverage report
