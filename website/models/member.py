@@ -18,6 +18,7 @@ class Member:
         self.groups: List[GroupType] = []
         self.shifts_completed: Dict[int] = {group_type: 0 for group_type in GroupType}
         self.db = db
+        self.is_super = False
 
 
     def get_free_tickets_remaining_count(self) -> int:

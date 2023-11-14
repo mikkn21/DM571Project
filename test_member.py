@@ -7,7 +7,6 @@ from website.models.member import Member
 from datetime import datetime
 from datetime import timedelta
 
-
 def database_test():
     db = Database()
     db.insert("shows", Show("e", ShowType.EVENT, datetime.now(), datetime.now(),  2))
@@ -38,6 +37,7 @@ def database_test():
     
     print("\nown in PR group")
     member.groups.append(GroupType.PR)
+    member.super_groups
     sch = member.get_own_schedule(datetime.now() - timedelta(days=8), datetime.now() + timedelta(days=1))
     print(member.groups)
     print(f"member_id: {member.id}")
