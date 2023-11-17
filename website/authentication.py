@@ -11,8 +11,11 @@ def require_login(view_func):
             return redirect(views.login_page)
 
         context = {"member": request.session["member"]}
+        member = views.get_current_member(context)
+        if member == None:
+            return redirect(views.login_page)
 
-        return view_func(request, context, *args, **kwargs)
+        return view_func(request, context, member, *args, **kwargs)
 
     return _decorated
 

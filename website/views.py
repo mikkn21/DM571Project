@@ -1,25 +1,27 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from datetime import datetime
-from .session_user import SessionMember
-from .authentication import require_login, require_super_login
+from datetime import timedelta
+from typing import Optional
 
+from .authentication import require_login, require_super_login
 from .models import *
+from .models.database import *
+from .models.password_protection import *
+
+from website.dummy_database import create_dummy_database
 
 # Create your views here.
 
+db = create_dummy_database()
+
 @require_login
-def index(request, context):
-    shifts_and_shows = [
-        Shift(1, datetime.now(), datetime.now(), [], GroupType.PR, False, 2),
-        Shift(2, datetime.now(), datetime.now(), [], GroupType.CLEANING, False, 1),
-        Shift(3, datetime.now(), datetime.now(), [], GroupType.SALES, False, 3),
-        Show("Barbie", ShowType.EVENT, datetime.now(), datetime.now(), 1),
-        Shift(4, datetime(2023, 8, 13, 6, 14, 47), datetime(2023, 8, 13, 10, 17, 47), [], GroupType.TECHNICAL, False, 2),
-        Show("Avengers", ShowType.EVENT, datetime.now(), datetime.now(), 2),
-        Shift(5, datetime.now(), datetime.now(), [], GroupType.FACILITY_SERVICE, False, 3),
-        Show("The Adventures of Slaub", ShowType.EVENT, datetime.now(), datetime.now(), 3),
-    ]
+def index(request, context, member):
+    start_date = datetime.now()
+    end_date = start_date + timedelta(days = 31)
+    schedule: Schedule = member.get_full_schedule(start_date, end_date)
+
+    shifts_and_shows = schedule.shifts + schedule.shows
 
     shifts_and_shows.sort(key=lambda shift_or_show: shift_or_show.start_date)
 
@@ -31,24 +33,57 @@ def index(request, context):
         shift_or_show.end_date_hour_min = shift_or_show.end_date.strftime("%H:%M")
         if isinstance(shift_or_show, Shift):
             shift_or_show.booked_members_count = len(shift_or_show.booked_members)
-            shift_or_show.is_bookable = True
-            shift_or_show.is_cancellable = False
+            shift_or_show.is_bookable = shift_is_bookable(member, shift_or_show)
+            shift_or_show.is_cancellable = shift_is_cancellable(member, shift_or_show)
+            shift_or_show.is_booked = shift_is_booked(member, shift_or_show)
         last_shift_or_show = shift_or_show
 
-    print(request.session["member"])
     shifts_and_shows = [(isinstance(shift_or_show, Shift), shift_or_show) for shift_or_show in shifts_and_shows] # map list to (is_shift, shift_or_show)
     context["shifts_and_shows"] = shifts_and_shows
     return HttpResponse(render(request, "website/schedule.html", context))
 
+def shift_is_bookable(member: Member, shift: Shift):
+    if len(shift.booked_members) >= shift.member_capacity:
+        return False
+
+    if shift.group not in member.groups:
+        return False 
+
+    if shift_is_booked(member, shift):
+        return False
+
+    if shift_is_old(shift):
+        return False
+
+    return True
+
+def shift_is_booked(member: Member, shift: Shift):
+    return member.id in shift.booked_members
+
+def shift_is_cancellable(member: Member, shift: Shift):
+    if shift_is_old(shift):
+        return False
+
+    if shift_is_soon(shift):
+        return False
+
+    return shift_is_booked(member, shift)
+
+def shift_is_old(shift: Shift):
+    return shift.end_date < datetime.now()
+
+def shift_is_soon(shift: Shift):
+    return shift.start_date - datetime.now() < timedelta(days = 7)
+
 @require_login
-def about_supers(request, context):
+def about_supers(request, context, super):
     return HttpResponse(render(request, "website/about_supers.html", context))
 
 def login_page(request):
     return HttpResponse(render(request, "website/login.html"))
 
 @require_super_login
-def super(request, context):
+def super(request, context, super):
     return HttpResponse(render(request, "website/super.html", context))
 
 def process_login(request):
@@ -56,19 +91,24 @@ def process_login(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
 
-        # Check if the username and password are 'admin'
-        if username == 'admin' and password == 'admin':
+        members = db.get("members", [Condition("id", username, lambda x,y: str(x) == str(y))])
+        if len(members) == 0:
+            return redirect(login_page)
+        member = members[0]
+
+        password_is_correct = check_password(password, member.password)
+        print(member.name)
+        print(member.password)
+        print(password_is_correct)
+
+        if password_is_correct:
             request.session["member"] = {}
-            request.session["member"]["id"] = 2
-            request.session["member"]["name"] = "John Doe"
-            request.session["member"]["is_super"] = True
+            request.session["member"]["id"] = member.id
+            request.session["member"]["name"] = member.name
+            request.session["member"]["is_super"] = member.is_super
             return redirect(index)
         else:
-            request.session["member"] = {}
-            request.session["member"]["id"] = 2
-            request.session["member"]["name"] = "John Doe"
-            request.session["member"]["is_super"] = False
-            return redirect(index)
+            return redirect(login_page)
 
     # Handle GET requests or other cases
     return render(request, 'website/login.html')
@@ -80,10 +120,48 @@ def logout(request):
     return redirect(login_page)
 
 @require_super_login
-def create_user(request, context):
+def create_user(request, context, super):
     return HttpResponse(render(request, "website/create_user.html", context))
 
 @require_super_login
-def create_show(request, context):
+def create_show(request, context, super):
     return HttpResponse(render(request, "website/create_show.html", context))
+
+@require_login
+def book_shift(request, context, member: Member):
+    if request.method == "GET":
+        try:
+            shift_id = int(request.GET.get("shift-id"))
+        except ValueError:
+            print("Shift id is not an int")
+            return redirect(index)
+
+        try:
+            member.book_shift(shift_id)
+        except (ExceedingCapacityException, InvalidGroupException, MissingAccessRightsException, OutdatedActionException) as e:
+            print(e.message)
+
+    return redirect(index)
+
+@require_login
+def cancel_shift(request, context, member: Member):
+    if request.method == "GET":
+        try:
+            shift_id = int(request.GET.get("shift-id"))
+        except ValueError:
+            print("Shift id is not an int")
+            return redirect(index)
+
+        try:
+            member.cancel_shift(shift_id)
+        except (OutdatedActionException, ValueError) as e:
+            print(e.message)
+
+    return redirect(index)
+
+def get_current_member(context):
+    members: List[Member] = db.get("members", [Condition("id", context["member"]["id"])])
+    if len(members) == 0:
+        return None
+    return members[0]
 

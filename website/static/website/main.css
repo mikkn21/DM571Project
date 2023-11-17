@@ -16,6 +16,7 @@ html,body {
     color: var(--text);
     margin: 0;
     padding: 0;
+    font-family: "Times New Roman", Times, serif;
 }
 
 body {
@@ -29,18 +30,21 @@ main {
 }
 
 button {
+    display: relative;
     padding: 12px 20px;
     font-size: 1rem;
     border: 1px solid var(--gray);
     background-color: var(--bg);
-    color: var(--orange);
-    transition: 0.3s;
+    color: var(--text);
+    transition: 0.2s;
     border-radius: 5px;
     cursor: pointer;
+    overflow: none;
 }
 
 button:hover {
     color: var(--text);
     background-color: var(--orange);
     border-color: var(--orange);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
 }

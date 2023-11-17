@@ -2,7 +2,7 @@ nav {
     display: inline-flex;
     flex-direction: row;
     align-items: center;
-    gap: 13px;    
+    gap: 13px;
 }
 
 logo {
@@ -10,7 +10,7 @@ logo {
 }
 
 header {
-    display:flex;
+    display: flex;
     flex-direction: row;
     gap: 20px;
     background-color: var(--bg1);
@@ -20,61 +20,30 @@ header {
 }
 
 .dropdown {
+    display: relative;
     margin-left: auto;
     float: left;
     overflow: hidden;
-  }
-
-.dropdown .dropbtn {
-    font-size: inherit;
-    border: none;
-    outline: none;
-    color: inherit;
-    padding: 0;
-    background-color: inherit;
-
-    margin: 0; 
   }
 
 
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: var(--bg);
+    right: 10px;
     color: inherit;
     min-width: 100px;
     z-index: 1;
-  }
+}
 
-.dropdown-content a {
-    float: none;
-    font-size: 1.2rem;
-    color: var(--orange);
-    padding: 6px 8px;
-    text-decoration: none;
+.dropdown:hover .dropdown-content {
     display: block;
-    border: 1px solid var(--text);
-    text-align: left;
-    transition: 0.3s;
-  }
+}
 
-
-.dropdown-content a:hover {
-    color: var(--text);
-    background-color: var(--orange);
-    border-color: var(--orange);
-  }
-  
-  .dropdown:hover .dropdown-content {
-    display: block;
-  }
-
-
-  
 nav a {
     text-decoration: none; /* Remove default underline */
     color: var(--text);
-    transition: color 0.3s; 
+    transition: color 0.2s; 
 }
 
 nav a:hover {
