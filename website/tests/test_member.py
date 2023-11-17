@@ -77,6 +77,11 @@ class MemberTests(TestCase):
         with self.assertRaises(MissingAccessRightsException):
             self.member.book_shift(2)
 
+    def test_book_shift_fail_double_book(self):
+        self.member.book_shift(1)
+        with self.assertRaises(ExceedingCapacityException):
+            self.member.book_shift(1)
+
     def test_get_full_schedule_success(self):
         # Assuming get_full_schedule method is implemented correctly
         start_date = datetime.now() - timedelta(days=1)

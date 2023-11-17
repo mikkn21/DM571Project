@@ -50,6 +50,8 @@ class Member:
             raise MissingAccessRightsException("Member attempted to book a shift meant for a super")
         elif shift.end_date < datetime.now():
             raise OutdatedActionException("Member attempted to book a shift that is too old")
+        elif self.id in shift.booked_members:
+            raise ExceedingCapacityException("You have already booked this shift")
         else: 
             shift.booked_members.append(self.id)
             self.db.update("shifts", [Condition("id", shift.id)], {"booked_members": shift.booked_members})
