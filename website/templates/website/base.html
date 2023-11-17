@@ -21,16 +21,18 @@
             <div class = "navitem">
                 <a href="/about_supers">Super</a>
             </div>
+            {% if member.is_super %}
             <div class = "navitem">
                 <a href="/super">Admin</a>
             </div>
+            {% endif %}
         </nav>
         <div class="dropdown">
-            <button class="dropbtn">UserInfo
+            <button class="dropbtn">{{ member.name }}
               <i class="fa fa-caret-down"></i>
             </button>
             <div class="dropdown-content">
-              <a href="/login">Log out</a>
+              <a href="/logout">Log out</a>
             </div>
         </div>
     </header>

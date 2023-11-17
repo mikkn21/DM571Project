@@ -21,12 +21,22 @@
     background-color: var(--green);
 }
 
-.schedule-item-shift .schedule-item-shift-full {
-    background-color: var(--orange);
+.schedule-item-shift-full {
+    background-color: var(--yellow);
 }
 
 .schedule-item-show {
     background-color: var(--blue);
+}
+
+.schedule-item-date {
+    padding: 0;
+    margin: 1.5rem 0;
+    font-size: 1.4rem;
+}
+
+.schedule-item-date p {
+    margin: 0;
 }
 
 .schedule-item-type {

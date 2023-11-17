@@ -15,7 +15,11 @@
             <p>{{ shift_or_show.new_date }}</p>
         </div>
         {% endif %}
-        <div class="schedule-item schedule-item-{% if is_shift %}shift{% else %}show{% endif %}">
+        <div class="schedule-item {% if is_shift %}
+            schedule-item-shift {% if shift_or_show.booked_members_count >= shift_or_show.member_capacity %}schedule-item-shift-full{% endif %}
+            {% else %}
+            schedule-item-show
+            {% endif %}">
             <p class="schedule-item-type">
                 {% if is_shift %}
                     Shift
@@ -35,7 +39,16 @@
                 {% endif %}
             </p>
             {% if shift_or_show.is_bookable %}
-            <button>Book</button>
+            <form method="GET" action="/book-shift">
+                <input type="hidden" name="shift-id" value="{{ shift_or_show.id }}" />
+                <button type="submit">Book</button>
+            </form>
+            {% endif %}
+            {% if shift_or_show.is_cancellable %}
+            <form method="GET" action="/cancel-shift">
+                <input type="hidden" name="shift-id" value="{{ shift_or_show.id }}" />
+                <button type="submit">Cancel</button>
+            </form>
             {% endif %}
         </div>
         {% endfor %}
