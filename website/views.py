@@ -17,8 +17,7 @@ db = create_dummy_database()
 
 @require_login
 def index(request, context, member):
-    start_date = datetime.now()
-    end_date = start_date + timedelta(days = 31)
+    start_date, end_date = get_week_datetimes(datetime.now())
     schedule: Schedule = member.get_full_schedule(start_date, end_date)
 
     shifts_and_shows = schedule.shifts + schedule.shows
@@ -41,6 +40,17 @@ def index(request, context, member):
     shifts_and_shows = [(isinstance(shift_or_show, Shift), shift_or_show) for shift_or_show in shifts_and_shows] # map list to (is_shift, shift_or_show)
     context["shifts_and_shows"] = shifts_and_shows
     return HttpResponse(render(request, "website/schedule.html", context))
+
+def get_week_datetimes(datetime_in_week: datetime):
+    """
+    For the given datetime_in_week, which can be any day in a any week, return the
+    beginning of the monday at that week and the beginning of the monday at the next week.
+    """
+    in_week = datetime_in_week.date()
+    start_date = in_week - timedelta(days = in_week.weekday())
+    end_date = start_date + timedelta(days = 7)
+    min_time = datetime.min.time()
+    return datetime.combine(start_date, min_time), datetime.combine(end_date, min_time)
 
 def shift_is_bookable(member: Member, shift: Shift):
     if len(shift.booked_members) >= shift.member_capacity:

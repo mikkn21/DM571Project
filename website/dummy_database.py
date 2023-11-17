@@ -11,6 +11,9 @@ def create_dummy_database():
     members = __get_members(db)
     for member in members:
         db.insert("members", member)
+    admin = Member("Admin", "admin", db)
+    admin.is_super = True
+    db.insert("members", admin)
 
     shifts = __get_shifts(db, members)
     shift_creator = ShiftCreator(db)
