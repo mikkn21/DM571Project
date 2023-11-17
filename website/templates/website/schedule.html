@@ -15,18 +15,15 @@
             <p>{{ shift_or_show.new_date }}</p>
         </div>
         {% endif %}
-        <div class="schedule-item {% if is_shift %}
-            schedule-item-shift {% if shift_or_show.booked_members_count >= shift_or_show.member_capacity %}schedule-item-shift-full{% endif %}
+        <div class="schedule-item 
+            {% if is_shift %}
+                schedule-item-shift 
+                {% if shift_or_show.booked_members_count >= shift_or_show.member_capacity %}schedule-item-shift-full{% endif %}
+                {% if shift_or_show.is_booked %}schedule-item-shift-booked{% endif %}
             {% else %}
-            schedule-item-show
+                schedule-item-show
             {% endif %}">
             <p class="schedule-item-type">
-                {% if is_shift %}
-                    Shift
-                {% else %}
-                    Show
-                {% endif %}
-                : 
                 {{ shift_or_show.start_date_hour_min }}
                 -
                 {{ shift_or_show.end_date_hour_min }}
@@ -35,7 +32,7 @@
                 {% if is_shift %}
                     {{ shift_or_show.group.name }} - {{ shift_or_show.booked_members_count }}/{{ shift_or_show.member_capacity }}
                 {% else %}
-                    {{ shift_or_show.title }}
+                    {{ shift_or_show.show_type.name}}: {{ shift_or_show.title }}
                 {% endif %}
             </p>
             {% if shift_or_show.is_bookable %}

@@ -28,11 +28,11 @@
             {% endif %}
         </nav>
         <div class="dropdown">
-            <button class="dropbtn">{{ member.name }}
-              <i class="fa fa-caret-down"></i>
-            </button>
+            {{ member.name }}
             <div class="dropdown-content">
-              <a href="/logout">Log out</a>
+                <form action="/logout" method="GET">
+                    <button type="submit">Log Out</button>
+                </form>
             </div>
         </div>
     </header>

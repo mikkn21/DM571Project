@@ -18,15 +18,19 @@
 }
 
 .schedule-item-shift {
-    background-color: var(--green);
+    background-color: var(--blue);
 }
 
 .schedule-item-shift-full {
     background-color: var(--yellow);
 }
 
+.schedule-item-shift-booked {
+    background-color: var(--green);
+}
+
 .schedule-item-show {
-    background-color: var(--blue);
+    background-color: var(--aqua);
 }
 
 .schedule-item-date {
