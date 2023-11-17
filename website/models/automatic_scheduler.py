@@ -1,18 +1,20 @@
-from ast import List
-
-from ..models.database import Database
+from ..models.shift import Shift
+from ..models.database import Condition, Database
 from ..models.show import Show
 from ..models.enum_show_type import ShowType
-from .shift_creator import ShiftCreator
+from ..models.shift_creator import ShiftCreator
 from datetime import datetime, timedelta
 
-class AutomaticScheduler(ShiftCreator):
-    def __init__(self, shiftcreator: ShiftCreator, db: Database):
-        self.__shiftcreator = shiftcreator
+class AutomaticScheduler():
+    def __init__(self, db: Database, standard_shifts_per_show):
+        self.__shift_creator = ShiftCreator(db)
         self.db = db
+        self.standard_shifts_per_show = standard_shifts_per_show
+        self.standard_member_capacity = 1
 
     def __get_shows_from_API(self):
         return [
+            Show(self.db, "Barbie", ShowType.EVENT, datetime.now() + timedelta(days=20), datetime.now() + timedelta(days=20,hours=2.5)),
             Show(self.db, "Barbie", ShowType.EVENT, datetime.now() + timedelta(days=20), datetime.now() + timedelta(days=20,hours=2.5)),
             Show(self.db, "Barbie", ShowType.MOVIE, datetime.now() + timedelta(days=24), datetime.now() + timedelta(days=24, hours=2.5)), 
             Show(self.db, "Barbie", ShowType.MOVIE, datetime.now() + timedelta(days=21), datetime.now() + timedelta(days=21,hours=2.5)),
@@ -39,6 +41,10 @@ class AutomaticScheduler(ShiftCreator):
             Show(self.db, "007 Skyfall", ShowType.MOVIE, datetime.now() - timedelta(days=18,hours=6), datetime.now() - timedelta(days=18,hours=3.5)),
             Show(self.db, "007 Skyfall", ShowType.MOVIE, datetime.now() - timedelta(days=17,hours=6), datetime.now() - timedelta(days=17,hours=3.5)),
         ]
-
-    def fetch_shows_and_create_shifts():
+ 
+    def fetch_shows_and_create_shifts(self):
         shows = self.__get_shows_from_API()
+        for show in shows:
+            for group in self.standard_shifts_per_show:            
+                if not self.db.get("shifts", [Condition("start_date", show.start_date), Condition("end_date", show.end_date), Condition("group", group), Condition("is_super", False), Condition("member_capacity", self.standard_member_capacity)]):
+                    self.__shift_creator.create_shift(Shift(self.db, show.start_date, show.end_date, [], group, False, self.standard_member_capacity))

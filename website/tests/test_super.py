@@ -76,6 +76,12 @@ class SuperTests(TestCase):
         with self.assertRaises(ValueError):
             self.member.cancel_shift(1, self.member.id)
 
+    def test_cancel_shift_success(self):
+        self.member.book_shift(1)
+        self.member.cancel_shift(1, self.member.id)
+        shift = self.test_db.get("shifts", [Condition("id", 1)])[0]
+        self.assertNotIn(self.member.id, shift.booked_members)
+
     def test_add_member_to_group_success(self):
         self.member.add_member_to_group(1, GroupType.CLEANING)
         alice = self.test_db.get("members", [Condition("id", 1)])[0]

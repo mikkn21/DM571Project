@@ -21,6 +21,10 @@ python manage.py test website
 python manage.py test website.tests.test_models
 ```
 
+# To Generate coverage report run:
+```
+coverage run --source='.' manage.py test website
+```
 
 # To view the coverage report
 ```

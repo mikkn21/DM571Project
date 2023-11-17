@@ -136,3 +136,7 @@ class MemberTests(TestCase):
         self.member.cancel_shift(1)
         shift = self.test_db.get("shifts", [Condition("id", 1)])[0]
         self.assertNotIn(self.member.id, shift.booked_members)
+
+
+    def test_get_free_tickets_remaining_count_success(self):
+        self.assertEqual(self.member.get_free_tickets_remaining_count(), 0)
