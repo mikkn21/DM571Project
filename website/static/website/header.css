@@ -31,7 +31,6 @@ header {
     display: none;
     position: absolute;
     right: 10px;
-    background-color: var(--bg);
     color: inherit;
     min-width: 100px;
     z-index: 1;
@@ -44,7 +43,7 @@ header {
 nav a {
     text-decoration: none; /* Remove default underline */
     color: var(--text);
-    transition: color 0.3s; 
+    transition: color 0.2s; 
 }
 
 nav a:hover {
