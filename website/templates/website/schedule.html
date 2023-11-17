@@ -8,6 +8,24 @@
 {% endblock %}
 
 {% block content %}
+    <div id="schedule-legend">
+        <div class="schedule-legend-item">
+            <div class="schedule-item-shift"></div>
+            <p>Available Shift</p>
+        </div>
+        <div class="schedule-legend-item">
+            <div class="schedule-item-shift-booked"></div>
+            <p>Your Shift</p>
+        </div>
+        <div class="schedule-legend-item">
+            <div class="schedule-item-shift-full"></div>
+            <p>Full Shift</p>
+        </div>
+        <div class="schedule-legend-item">
+            <div class="schedule-item-show"></div>
+            <p>Show</p>
+        </div>
+    </div>
     <div id="schedule-container">
         {% for is_shift, shift_or_show in shifts_and_shows %}
         {% if shift_or_show.new_date != None %}
