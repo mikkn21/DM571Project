@@ -6,4 +6,4 @@ class ShiftCreator:
         self.db: Database = database
 
     def create_shift(self, shift: Shift):
-        self.db.insert("shift", shift)
+        self.db.insert("shifts", shift)

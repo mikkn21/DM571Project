@@ -29,8 +29,8 @@ class MemberTests(TestCase):
                        booked_members=[], group=GroupType.SALES, is_super=False, member_capacity=2)
         self.test_db.insert('shifts', shift1)
 
-        show1 = Show(title="Show1", show_type=ShowType.EVENT, start_date=datetime.now(), 
-                 end_date=datetime.now() + timedelta(days=1), db=self.test_db)
+        show1 = Show(db=self.test_db, title="Show1", show_type=ShowType.EVENT, start_date=datetime.now(), 
+                 end_date=datetime.now() + timedelta(days=1))
         self.test_db.insert('shows', show1)
 
     # Remember to change how shifts and shows are created once ID creation has been implemented!!!
@@ -121,6 +121,10 @@ class MemberTests(TestCase):
 
         with self.assertRaises(OutdatedActionException):
             self.member.cancel_shift(2)
+
+    def test_cancel_shift_fail_not_booked(self):
+        with self.assertRaises(ValueError):
+            self.member.cancel_shift(1)
 
     def test_cancel_shift_success(self):
         self.member.book_shift(1)

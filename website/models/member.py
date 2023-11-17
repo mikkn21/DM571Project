@@ -18,7 +18,7 @@ class Member:
         self.groups: List[GroupType] = []
         self.shifts_completed: Dict[int] = {group_type: 0 for group_type in GroupType}
         self.is_super = False
-
+        
 
     def get_free_tickets_remaining_count(self) -> int:
         return self.obtained_free_tickets
@@ -33,7 +33,7 @@ class Member:
         self.db.update("ids", [Condition("key", "members")], {"value": new_id})
         return new_id
     
-    def __get_element_by_id(self, table: str, id: int) -> "Shift":
+    def _get_element_by_id(self, table: str, id: int) -> "Shift":
         element = self.db.get(table, [Condition("id", id)])
         if len(element) != 1:
             raise ValueError("invalid id")
@@ -41,7 +41,7 @@ class Member:
 
     # should be locked while modifying database
     def book_shift(self, shift_id: int):
-        shift: "Shift" = self.__get_element_by_id("shifts", shift_id)
+        shift: "Shift" = self._get_element_by_id("shifts", shift_id)
         if len(shift.booked_members) >= shift.member_capacity:
             raise ExceedingCapacityException("Max capacity of members already reached, booking denied")
         elif shift.group not in self.groups: 
@@ -56,7 +56,7 @@ class Member:
 
     # should be locked while modifying database
     def cancel_shift(self, shift_id: int):
-        shift: "Shift" = self.__get_element_by_id("shifts", shift_id)
+        shift: "Shift" = self._get_element_by_id("shifts", shift_id)
         if shift.end_date < datetime.now() + timedelta(days=7):
             raise OutdatedActionException("Member attempted to cancel a shift that is either too old or within a week")
         elif self.id not in shift.booked_members:
