@@ -1,4 +1,5 @@
 from website.models.database import Database, Condition
+from website.models.password_protection import check_password
 from website.models.show import Show
 from website.models.shift import Shift
 from website.models.enum_show_type import ShowType
@@ -27,22 +28,9 @@ def database_test():
     db.insert("shifts", Shift(11, datetime.now() - timedelta(days=7), datetime.now(), [5], GroupType.PR, False, 5))
     member: Member = Member("Malthe", "lmao", db)
 
-    sch = member.get_full_schedule(datetime.now() - timedelta(days=8), datetime.now() + timedelta(days=8))
-    print("\nfull")
-    [print(shift.id) for shift in sch.shifts]
-    sch = member.get_own_schedule(datetime.now() - timedelta(days=8), datetime.now() + timedelta(days=8))
-    print("\nown in no group")
-    print(f"member_id: {member.id}")
-    [print(shift.id) for shift in sch.shifts]
     
-    print("\nown in PR group")
-    member.groups.append(GroupType.PR)
-    member.super_groups
-    sch = member.get_own_schedule(datetime.now() - timedelta(days=8), datetime.now() + timedelta(days=1))
-    print(member.groups)
-    print(f"member_id: {member.id}")
-    [print(shift.id) for shift in sch.shifts]
-
+    member = db.get("Members", [Condition("id", id)])[0]
+    check_password("lmao", member.password)
 
     
 database_test()

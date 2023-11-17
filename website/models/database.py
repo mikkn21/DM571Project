@@ -20,18 +20,25 @@ class Condition:
         self.value = value
         self.compare = compare
 
+class ID:
+    def __init__(self, key: str, value):
+        self.key = key
+        self.value = value
+
 
 class DatabaseObjects(TypedDict):
     members: List["Member"]
     shifts: List["Shift"]
     shows: List["Show"]
+    ids: List[ID]
 
 class Database:
     def __init__(self):
         self._data: DatabaseObjects = {
             'members': [],
             'shifts': [],
-            'shows': []
+            'shows': [],
+            'ids': [ID("members", 0), ID("shifts", 0), ID("shows", 0)],
         }
 
     def insert(self, table: str, object):

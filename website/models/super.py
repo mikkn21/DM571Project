@@ -13,21 +13,21 @@ class Super(Member):
         self.__shift_creator: 'ShiftCreator' = shiftcreator
 
     def give_free_ticket(self, member_id: int) -> None:
-        member = self.db.get("members", [Condition("id", member_id)])
+        member = self.__get_element_by_id("members", member_id)
         self.db.update("members", [Condition("id", member_id)], {"free_ticket": member.free_ticket+1})
 
     def create_shift(shift: Shift) -> Shift:
         pass 
 
     def add_super_to_group(self, member_id: int, group: GroupType) -> None:
-        member = self.db.get("members", [Condition("id", member_id)])
+        member = self.db.get("members", [Condition("id", member_id)])[0]
         if not member.is_super:
             raise AttributeError("Member was not a Super")
         self.db.update("member", [Condition("id", member_id)], {"self"})
 
     
     def promote_to_super(self, member_id: int, group: GroupType) -> None:
-        member = self.db.get("members", [Condition("id", member_id)])
+        member = self.__get_element_by_id("members", member_id)
         try:
             member.super_groups.append(group)
         except AttributeError as e:
