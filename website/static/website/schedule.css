@@ -75,10 +75,10 @@ main {
 .schedule-legend-item > div {
     width: 1rem;
     height: 1rem;
+    border-radius: 3px;
 }
 
 .schedule-legend-item p {
-    font-family: "Times New Roman", Times, serif;
     margin: 0;
 }
 
