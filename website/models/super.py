@@ -46,22 +46,22 @@ class Super(Member):
             shift.booked_members.remove(member_id)
             self.db.update("shifts", [Condition("id", shift.id)], {"booked_members": shift.booked_members})
     
-    def add_member_to_group(self, member_id: int, group: GroupType):
+    def add_member_to_group(self, member_id: int, group: GroupType) -> None:
         member1 = self._get_element_by_id("members", member_id)
         if group not in member1.groups:
             member1.groups.append(group)
             self.db.update("members", [Condition("id", member_id)], {"groups": member1.groups})
     
-    def remove_member_from_group(self, member_id: int, group: GroupType):
+    def remove_member_from_group(self, member_id: int, group: GroupType) -> None:
         member1 = self._get_element_by_id("members", member_id)
         if group in member1.groups:
             member1.groups.remove(group)
             self.db.update("members", [Condition("id", member_id)], {"groups": member1.groups})
     
-    def create_member(member_id: int) -> Member:
-        pass
+    def create_member(self, member: Member) -> None:
+        self.db.insert("members", member)
     
-    def delete_member(member_id: int) -> None:
-        pass
+    def delete_member(self, member_id: int) -> None:
+        self.db.delete("members", [Condition("id", member_id)])
     
     

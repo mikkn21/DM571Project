@@ -86,3 +86,12 @@ class SuperTests(TestCase):
         self.member.remove_member_from_group(1, GroupType.CLEANING)
         alice = self.test_db.get("members", [Condition("id", 1)])[0]
         self.assertNotIn(GroupType.CLEANING, alice.groups)
+    
+    def test_delete_member_success(self):
+        self.member.delete_member(1)
+        self.assertTrue(not self.test_db.get("members", [Condition("id", 1)]))
+        
+    def test_create_member_success(self):
+        member1 = Member(name='Troels', password='troels123', db=self.test_db)
+        self.member.create_member(member1)
+        self.assertEqual(member1.id, self.test_db.get("members", [Condition("id", member1.id)])[0].id)
