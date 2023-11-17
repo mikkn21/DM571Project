@@ -5,9 +5,6 @@ from ..models.custom_exception import *
 from ..models.show import Show
 from ..models.enum_show_type import ShowType
 from ..models.enum_group import GroupType
-from ..models.database import Database, Condition
-from ..models.member import Member
-from ..models.shift import Shift
 from unittest.mock import patch
 from datetime import datetime, timedelta
 
