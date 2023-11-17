@@ -3,7 +3,7 @@ from ..models.database import Condition, Database
 from .enum_show_type import ShowType
 
 class Show:
-    def __init__(self, title: str, show_type: ShowType, start_date: datetime, end_date: datetime, db: Database):
+    def __init__(self, db: Database, title: str, show_type: ShowType, start_date: datetime, end_date: datetime):
         self.title: str = title
         self.show_type: ShowType = show_type
         self.start_date: datetime = start_date

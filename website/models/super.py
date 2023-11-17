@@ -6,24 +6,25 @@ from .shift import Shift
 from database import Condition
 
 class Super(Member):
-    def __init__(self, super_groups: GroupType, shiftcreator: ShiftCreator):
+    def __init__(self, super_groups: GroupType, shift_creator: ShiftCreator):
         super.__init__()
         self.is_super = True
         self.super_groups: Set[GroupType] = super_groups
-        self.__shift_creator: 'ShiftCreator' = shiftcreator
+        self.__shift_creator: 'ShiftCreator' = shift_creator
 
     def give_free_ticket(self, member_id: int) -> None:
         member = self.__get_element_by_id("members", member_id)
-        self.db.update("members", [Condition("id", member_id)], {"free_ticket": member.free_ticket+1})
+        self.db.update("members", [Condition("id", member_id)], {"obtained_free_tickets": member.obtained_free_tickets+1})
 
     def create_shift(shift: Shift) -> Shift:
         pass 
 
     def add_super_to_group(self, member_id: int, group: GroupType) -> None:
         member = self.db.get("members", [Condition("id", member_id)])[0]
-        if not member.is_super:
-            raise AttributeError("Member was not a Super")
-        self.db.update("member", [Condition("id", member_id)], {"self"})
+        if group in member.groups:
+            raise ValueError("Member was already part of that group")
+        member.groups.append(group)
+        self.db.update("member", [Condition("id", member_id)], {"groups", member.groups})
 
     
     def promote_to_super(self, member_id: int, group: GroupType) -> None:

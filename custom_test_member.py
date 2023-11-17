@@ -27,8 +27,8 @@ def database_test():
     db.insert("shifts", Shift(10, datetime.now() - timedelta(days=7), datetime.now(), [5], GroupType.PR, False, 5))
     db.insert("shifts", Shift(11, datetime.now() - timedelta(days=7), datetime.now(), [5], GroupType.PR, False, 5))
     member: Member = Member("Malthe", "lmao", db)
-
-    
+    db.insert("members", member)
+    member.groups.append(GroupType.SALES)
     member = db.get("Members", [Condition("id", id)])[0]
     check_password("lmao", member.password)
 
