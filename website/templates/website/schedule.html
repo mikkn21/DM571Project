@@ -10,6 +10,11 @@
 {% block content %}
     <div id="schedule-container">
         {% for is_shift, shift_or_show in shifts_and_shows %}
+        {% if shift_or_show.new_date != None %}
+        <div class="schedule-item schedule-item-date">
+            <p>{{ shift_or_show.new_date }}</p>
+        </div>
+        {% endif %}
         <div class="schedule-item schedule-item-{% if is_shift %}shift{% else %}show{% endif %}">
             <p class="schedule-item-type">
                 {% if is_shift %}
