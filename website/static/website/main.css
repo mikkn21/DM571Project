@@ -2,6 +2,7 @@
     --bg: #282828;
     --bg1: #1d2021;
     --text: #eddbb2; 
+    --fg4: #a89984;
     --orange: #d65d0e; 
     --green: #98971a;
     --blue: #458588;
@@ -9,6 +10,7 @@
     --gray: #a89984;
     --yellow: #d79921;
     --aqua: #689d6a;
+    --purple: #b16286;
 }
 
 html,body {

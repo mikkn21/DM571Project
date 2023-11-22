@@ -18,11 +18,10 @@ class Member:
         self.groups: List[GroupType] = []
         self.shifts_completed: Dict[int] = {group_type: 0 for group_type in GroupType}
         self.is_super = False
-        
 
     def get_free_tickets_remaining_count(self) -> int:
         return self.obtained_free_tickets
-    
+
     # id 0 is reserved for admin
     # should be locked while modifying database
     def __create_id(self):

@@ -9,10 +9,11 @@ urlpatterns = [
     path("logout/", views.logout, name="logout"),
     path("about_supers/", views.about_supers, name="about_supers"),
     path("super/", views.super, name="super"),
-    path("create_user/", views.create_user, name="create_user"),
-    path("create_show/", views.create_show, name="create_show"),
+    path("super/create_user/", views.create_user, name="create_user"),
+    path("super/create_show/", views.create_show, name="create_show"),
     path("process_login/", views.process_login, name="process_login"),
     path("book-shift/", views.book_shift, name="book_shift"),
     path("cancel-shift/", views.cancel_shift, name="cancel_shift"),
+    path("super/list_users/", views.list_users, name="list_users"),
 ]
 
