@@ -15,9 +15,21 @@ from website.dummy_database import create_dummy_database
 
 db = create_dummy_database()
 
+datetime_argument_format = "%y-%m-%d"
+date_format = "%d/%m/%Y"
+
 @require_login
 def index(request, context, member):
-    start_date, end_date = get_week_datetimes(datetime.now())
+    if request.method != "GET":
+        return redirect(login_page)
+
+    base_date = request.GET.get("date")
+    if base_date != None:
+        base_date = datetime.strptime(base_date, datetime_argument_format)
+    else:
+        base_date = datetime.now()
+
+    start_date, end_date = get_week_datetimes(base_date)
     schedule: Schedule = member.get_full_schedule(start_date, end_date)
 
     shifts_and_shows = schedule.shifts + schedule.shows
@@ -39,6 +51,10 @@ def index(request, context, member):
 
     shifts_and_shows = [(isinstance(shift_or_show, Shift), shift_or_show) for shift_or_show in shifts_and_shows] # map list to (is_shift, shift_or_show)
     context["shifts_and_shows"] = shifts_and_shows
+    context["start_date"] = start_date.strftime(date_format)
+    context["end_date"] = (end_date - timedelta(seconds=1)).strftime(date_format)
+    context["next_date"] = (end_date + timedelta(days=1)).strftime(datetime_argument_format)
+    context["previous_date"] = (start_date - timedelta(days=1)).strftime(datetime_argument_format)
     return HttpResponse(render(request, "website/schedule.html", context))
 
 def get_week_datetimes(datetime_in_week: datetime):

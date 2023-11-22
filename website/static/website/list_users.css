@@ -6,24 +6,23 @@ h1 {
 
 #members {
     display: flex;
-    flex-flow: column nowrap;
+    flex-flow: row wrap;
     gap: 40px;
-    margin: 40px 0;
+    margin: 40px;
+    justify-content: center;
 }
 
 .member {
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
-    border-bottom: 1px solid var(--fg4);
     gap: 20px;
     padding-bottom: 40px;
     font-size: 1.2rem;
-}
-
-.member:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
+    padding: 2rem;
+    background-color: var(--bg1);
+    border-radius: 10px;
+    width: min(100vw, 20rem);
 }
 
 .member-name {
