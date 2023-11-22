@@ -175,3 +175,11 @@ def get_current_member(context):
         return None
     return members[0]
 
+@require_super_login
+def list_users(request, context, super: Member):
+    members: List[Member] = super.db.get("members", [])
+    for member in members:
+        member.groups_str = [group.name for group in member.groups]
+    context["members"] = members
+    return HttpResponse(render(request, "website/list_users.html", context))
+

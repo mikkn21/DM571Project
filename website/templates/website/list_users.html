@@ -1,0 +1,33 @@
+{% extends 'website/admin_base.html' %}
+{% load static %}
+
+{% block title %} List Users {% endblock %}
+
+{% block admin_styles %}
+    <link rel="stylesheet" href="{% static 'website/list_users.css' %}" />
+{% endblock %}
+
+{% block admin_content %}
+<h1>Members List</h1>
+
+<div id="members">
+    {% for member in members %}
+    <div class="member">
+        <div>
+            <h2 class="member-name">{{member.name}}</h2>
+            <div class="member-groups">
+                {% for group in member.groups_str %}
+                <span class="member-group">{{ group }}</span>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="member-info-container">
+            <span>Free tickets obtained:</span><span>{{member.obtained_free_tickets}}</span>
+            <span>E-Mail:</span><span>{{member.obtained_free_tickets}}</span>
+            <span>Phone Number:</span><span>{{member.obtained_free_tickets}}</span>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
