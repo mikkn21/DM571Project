@@ -6,10 +6,13 @@ from .enum_group import GroupType
 from .schedule import Schedule
 from .custom_exception import *
 from .database import Condition, Database
+import re
 
 class Member:
-    def __init__(self, name: str, password: str, db: Database):
+    def __init__(self, name: str, password: str, db: Database, email: str, phone_number: str):
+        self.__check_valid_phone_number(phone_number)
         self.db = db
+        self.__check_unique_email(email)
         self.id: int = self.__create_id()
         self.name: str = name
         self.password: any = hash_password(password)
@@ -18,10 +21,19 @@ class Member:
         self.groups: List[GroupType] = []
         self.shifts_completed: Dict[int] = {group_type: 0 for group_type in GroupType}
         self.is_super = False
+        self.email = email
+        self.phone_number = phone_number
         
+    
+    def __check_valid_phone_number(self, phone_number: str):
+        pattern = r"^\+\d+$"
+        if not re.match(pattern, phone_number):
+            raise ValueError("Invalid phone number")
 
-    def get_free_tickets_remaining_count(self) -> int:
-        return self.obtained_free_tickets
+    def __check_unique_email(self, email: str):
+        if self.db.get("members", [Condition("email", email)]):
+            raise ValueError("Email already exists")
+        
     
     # id 0 is reserved for admin
     # should be locked while modifying database
@@ -38,6 +50,9 @@ class Member:
         if len(element) != 1:
             raise ValueError("invalid id")
         return element[0]
+
+    def get_free_tickets_remaining_count(self) -> int:
+        return self.obtained_free_tickets
 
     # should be locked while modifying database
     def book_shift(self, shift_id: int):

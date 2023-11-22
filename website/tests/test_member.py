@@ -15,13 +15,13 @@ class MemberTests(TestCase):
 
         # Create some dummy data for testing
         # Dummy members
-        alice = Member(name='Alice', password='alice123', db=self.test_db)
+        alice = Member(name='Alice', password='alice123', db=self.test_db, email="alice@gmail.cm", phone_number="+69420420")
         alice.groups.append(GroupType.SALES)
         self.test_db.insert('members', alice)
-        self.test_db.insert('members', Member(name='Bob', password='bob123', db=self.test_db))
+        self.test_db.insert('members', Member(name='Bob', password='bob123', db=self.test_db, email="bob123@gmail.com", phone_number="+4598126578"))
 
         # Setup a Member instance for tests
-        self.member = Member(name='John Doe', password='password123', db=self.test_db)
+        self.member = Member(name='John Doe', password='password123', db=self.test_db, email="JoDo@hotmail.com", phone_number="+4512345678")
         self.member.groups.append(GroupType.SALES)
 
         # Dummy shifts
@@ -140,3 +140,18 @@ class MemberTests(TestCase):
 
     def test_get_free_tickets_remaining_count_success(self):
         self.assertEqual(self.member.get_free_tickets_remaining_count(), 0)
+
+    def test_valid_phone_number_failure(self):
+        with self.assertRaises(ValueError):
+            test_member: Member = Member(name="Testman", password="lmao", db=self.test_db, email="lmao123@gmail.com", phone_number="+abc")
+
+    def test_unique_email_success(self):
+        self.test_db.insert("members",self.member, [Condition("email", self.member.email)])
+        john: Member = self.test_db.get("members", [Condition("id", self.member.id)])[0]
+        self.assertEqual(john.email, self.member.email)
+        
+    def test_unique_email_failed(self):
+        self.test_db.insert("members",self.member, [Condition("email", self.member.email)])
+        with self.assertRaises(ValueError):
+            Member(name='John Doe', password='password123', db=self.test_db, email="JoDo@hotmail.com", phone_number="+4512345678")
+

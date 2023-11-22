@@ -1,5 +1,6 @@
 from django.test import TestCase
 
+from website.models.database import Database
 from ..models.automatic_scheduler import AutomaticScheduler
 from ..models.custom_exception import *
 from ..models.show import Show
@@ -17,9 +18,10 @@ class AutomaticSchedulerTests(TestCase):
 
     @patch('website.models.automatic_scheduler.AutomaticScheduler._AutomaticScheduler__get_shows_from_API')
     def test_fetch_shows_and_create_shifts_success(self, mock_get_shows):
+        now = datetime.now()
         mock_get_shows.return_value = [
-            Show(self.test_db, "Barbie", ShowType.EVENT, datetime.now() + timedelta(days=20), datetime.now() + timedelta(days=20,hours=2.5)),
-            Show(self.test_db, "Barbie", ShowType.EVENT, datetime.now() + timedelta(days=20), datetime.now() + timedelta(days=20,hours=2.5)),
+            Show(self.test_db, "Barbie", ShowType.EVENT, now + timedelta(days=20), now + timedelta(days=20,hours=2.5)),
+            Show(self.test_db, "Barbie", ShowType.EVENT, now + timedelta(days=20), now + timedelta(days=20,hours=2.5)),
             Show(self.test_db, "Barbie", ShowType.MOVIE, datetime.now() + timedelta(days=24), datetime.now() + timedelta(days=24, hours=2.5)), 
             Show(self.test_db, "Barbie", ShowType.MOVIE, datetime.now() + timedelta(days=21), datetime.now() + timedelta(days=21,hours=2.5)),
             Show(self.test_db, "Barbie", ShowType.MOVIE, datetime.now() + timedelta(days=22), datetime.now() + timedelta(days=22,hours=2.5)),

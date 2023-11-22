@@ -11,7 +11,7 @@ def create_dummy_database():
     members = __get_members(db)
     for member in members:
         db.insert("members", member)
-    admin = Member("Admin", "admin", db)
+    admin = Member("Admin", "admin", db, "admin@gmail.com", "+232323432")
     admin.is_super = True
     db.insert("members", admin)
 
@@ -28,9 +28,9 @@ def create_dummy_database():
 
 def __get_members(db: Database):
     members = []
-    for group in GroupType:
+    for n, group in enumerate(GroupType):
         name = group.name.lower()
-        member = Member(name, name, db)
+        member = Member(name, name, db, f"{name}@gmail.com", f"+{n}")
         member.groups.append(group)
         members.append(member)
     return members

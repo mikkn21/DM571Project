@@ -6,11 +6,12 @@ from .shift_creator import ShiftCreator
 from .enum_group import GroupType
 from .shift import Shift
 from .database import Condition, Database
+from typing import List
 from website.models import shift_creator
 
 class Super(Member):
-    def __init__(self, name: str, password: str, db: Database, super_groups: [GroupType], shift_creator: ShiftCreator):
-        super().__init__(name, password, db)
+    def __init__(self, name: str, password: str, db: Database, email: str, phone_number: str, super_groups: List[GroupType], shift_creator: ShiftCreator):
+        super().__init__(name, password, db, email, phone_number)
         self.is_super = True
         self.super_groups: Set[GroupType] = super_groups
         self.__shift_creator: ShiftCreator = shift_creator
@@ -29,14 +30,14 @@ class Super(Member):
         _super.super_groups.append(group)
         self.db.update("members", [Condition("id", member_id)], {"super_groups": _super.super_groups})
     
-    def promote_to_super(self, member_id: int, super_groups: [GroupType]) -> None:
+    def promote_to_super(self, member_id: int, super_groups: List[GroupType]) -> None:
         if not super_groups:
             raise InvalidGroupException("No groups to be super for was given. List must not be empty")
         member = self._get_element_by_id("members", member_id)
-        _super = Super(member.name, "123", member.db, super_groups, self.__shift_creator)
+        self.db.delete("members", [Condition("id", member.id)])
+        _super = Super(member.name, "123", member.db, member.email, member.phone_number, super_groups, self.__shift_creator)
         _super.password = member.password
         self.db.insert("members", _super)
-        self.db.delete("members", [Condition("id", member.id)])
         
     def cancel_shift(self, shift_id: int, member_id: int) -> None:
         shift: "Shift" = self._get_element_by_id("shifts", shift_id)

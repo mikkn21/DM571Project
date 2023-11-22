@@ -17,13 +17,13 @@ class SuperTests(TestCase):
         self.test_db = Database()
         self.shift_creator = ShiftCreator(self.test_db)
         # Dummy members
-        alice = Super(name='Alice', password='alice123', db=self.test_db, super_groups=[GroupType.SALES], shift_creator=self.shift_creator)
+        alice = Super(name='Alice', password='alice123', db=self.test_db, email="alice@gmail.cm", phone_number="+69420420", super_groups=[GroupType.SALES], shift_creator=self.shift_creator)
         alice.groups.append(GroupType.SALES)
         self.test_db.insert('members', alice)
-        self.test_db.insert('members', Super(name='Bob', password='bob123', db=self.test_db, super_groups=[], shift_creator=self.shift_creator))
+        self.test_db.insert('members', Super(name='Bob', password='bob123', db=self.test_db, email="bob123@gmail.com", phone_number="+4598126578", super_groups=[], shift_creator=self.shift_creator))
 
         # Setup a Member instance for tests
-        self.member = Super(name='John Doe', password='password123', db=self.test_db, super_groups=[], shift_creator=self.shift_creator)
+        self.member = Super(name='John Doe', password='password123', db=self.test_db, email="JoDo@hotmail.com", phone_number="+4512345678", super_groups=[], shift_creator=self.shift_creator)
         self.member.groups.append(GroupType.SALES)
 
         # Dummy shifts
@@ -56,13 +56,13 @@ class SuperTests(TestCase):
             self.member.add_super_to_group(1, GroupType.SALES)
 
     def test_promote_to_super_success(self):
-        member1 = Member(name='Troels', password='troels123', db=self.test_db)
+        member1 = Member(name='Troels', password='troels123', db=self.test_db, email="troels3@gmail.com", phone_number="+69696969")
         member1.groups.append(GroupType.SALES)
         self.test_db.insert('members', member1)
         self.member.promote_to_super(member1.id, [GroupType.SALES])
     
     def test_promote_to_super_fail_no_group(self):
-        member1 = Member(name='Troels', password='troels123', db=self.test_db)
+        member1 = Member(name='Troels', password='troels123', db=self.test_db, email="troels@gmail.com", phone_number="+69696969")
         member1.groups.append(GroupType.SALES)
         self.test_db.insert('members', member1)
         with self.assertRaises(InvalidGroupException):
@@ -98,6 +98,6 @@ class SuperTests(TestCase):
         self.assertTrue(not self.test_db.get("members", [Condition("id", 1)]))
         
     def test_create_member_success(self):
-        member1 = Member(name='Troels', password='troels123', db=self.test_db)
+        member1 = Member(name='Troels', password='troels123', db=self.test_db, email="troels2@gmail.com", phone_number="+69696969")
         self.member.create_member(member1)
         self.assertEqual(member1.id, self.test_db.get("members", [Condition("id", member1.id)])[0].id)
