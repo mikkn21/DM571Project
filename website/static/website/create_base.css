@@ -4,6 +4,13 @@ h2 {
     font-weight: bold;
 }
 
+form {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 40px;
+}
+
 .cont {
     display: grid; 
     margin-top: 20px;
@@ -12,7 +19,7 @@ h2 {
     gap: 40px;
 }
 
-.sign_up {
+.inputs {
     display: inline-grid;
     margin: auto;
     grid-template-columns: auto 1fr;
