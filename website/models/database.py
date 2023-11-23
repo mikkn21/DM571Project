@@ -41,12 +41,8 @@ class Database:
             'ids': [ID("members", 0), ID("shifts", 0), ID("shows", 0)],
         }
 
-    def insert(self, table: str, object, conditions: List[Condition] = []):
-        """
-        will only insert the given object, if there are no object in the database, that matches the condition(s)
-        """
-        if not conditions or not self.get(table, conditions):
-            self._data[table].append(object)
+    def insert(self, table: str, object):
+        self._data[table].append(object)
 
     # deletes all entries where all conditions are met
     def delete(self, table: str, conditions: List[Condition]):

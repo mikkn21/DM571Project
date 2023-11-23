@@ -146,12 +146,12 @@ class MemberTests(TestCase):
             test_member: Member = Member(name="Testman", password="lmao", db=self.test_db, email="lmao123@gmail.com", phone_number="+abc")
 
     def test_unique_email_success(self):
-        self.test_db.insert("members",self.member, [Condition("email", self.member.email)])
+        self.test_db.insert("members",self.member)
         john: Member = self.test_db.get("members", [Condition("id", self.member.id)])[0]
         self.assertEqual(john.email, self.member.email)
         
     def test_unique_email_failed(self):
-        self.test_db.insert("members",self.member, [Condition("email", self.member.email)])
+        self.test_db.insert("members",self.member)
         with self.assertRaises(ValueError):
             Member(name='John Doe', password='password123', db=self.test_db, email="JoDo@hotmail.com", phone_number="+4512345678")
 
