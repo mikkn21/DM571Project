@@ -30,3 +30,16 @@ form {
 label {
     font-weight: bold;
 }
+
+.group-types {
+    display: grid; 
+    grid-template-columns: 1fr auto;
+    gap: 5px;
+}
+
+.group-types-container p{
+    font-weight: bold;
+    font-size: 1.2rem;
+    text-align: center;
+    
+}

@@ -30,7 +30,7 @@ def __get_members(db: Database):
     members = []
     for n, group in enumerate(GroupType):
         name = group.name.lower()
-        member = Member(name, name, db, f"{name}@gmail.com", f"+{n}")
+        member = Member(name, name, db, f"{name}@gmail.com", f"+45{str(n)*8}")
         member.groups.add(group)
         members.append(member)
     return members

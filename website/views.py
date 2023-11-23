@@ -151,6 +151,12 @@ def create_user(request, context, super):
         password = request.POST.get("password")
         phone_number = request.POST.get("phone_number")
         member = Member(name, password, db, email, phone_number)
+
+        for group in GroupType:
+            value = request.POST.get(group.name.lower())
+            if value == "on":
+                member.groups.add(group)
+
         db.insert("members", member)
     
     return HttpResponse(render(request, "website/create_user.html", context))
