@@ -150,6 +150,11 @@ def create_user(request, context, super):
     return HttpResponse(render(request, "website/create_user.html", context))
 
 @require_super_login
+def process_create_user(request, context, super):
+    pass 
+
+
+@require_super_login
 def create_show(request, context, super):
     return HttpResponse(render(request, "website/create_show.html", context))
 

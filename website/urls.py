@@ -10,6 +10,7 @@ urlpatterns = [
     path("about_supers/", views.about_supers, name="about_supers"),
     path("super/", views.super, name="super"),
     path("super/create_user/", views.create_user, name="create_user"),
+    path("super/process_create_user", views.process_create_user, name="process_create_user"),
     path("super/create_show/", views.create_show, name="create_show"),
     path("process_login/", views.process_login, name="process_login"),
     path("book-shift/", views.book_shift, name="book_shift"),

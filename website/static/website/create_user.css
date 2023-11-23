@@ -1,5 +1,15 @@
 h2 {
-    color: red;
+    margin: 0;
+    font-size: 2.6rem;
+    font-weight: bold;
+}
+
+.cont {
+    display: grid; 
+    margin-top: 20px;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 40px;
 }
 
 .sign_up {
