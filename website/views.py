@@ -106,13 +106,6 @@ def about_supers(request, context, super):
     return HttpResponse(render(request, "website/about_supers.html", context))
 
 def login_page(request):
-    return HttpResponse(render(request, "website/login.html"))
-
-@require_super_login
-def super(request, context, super):
-    return HttpResponse(render(request, "website/super.html", context))
-
-def process_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -123,9 +116,6 @@ def process_login(request):
         member = members[0]
 
         password_is_correct = check_password(password, member.password)
-        print(member.name)
-        print(member.password)
-        print(password_is_correct)
 
         if password_is_correct:
             request.session["member"] = {}
@@ -133,11 +123,12 @@ def process_login(request):
             request.session["member"]["name"] = member.name
             request.session["member"]["is_super"] = member.is_super
             return redirect(index)
-        else:
-            return redirect(login_page)
 
-    # Handle GET requests or other cases
-    return render(request, 'website/login.html')
+    return HttpResponse(render(request, "website/login.html"))
+
+@require_super_login
+def super(request, context, super):
+    return HttpResponse(render(request, "website/super.html", context))
 
 def logout(request):
     if "member" in request.session:
