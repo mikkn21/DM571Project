@@ -31,7 +31,7 @@ def __get_members(db: Database):
     for n, group in enumerate(GroupType):
         name = group.name.lower()
         member = Member(name, name, db, f"{name}@gmail.com", f"+{n}")
-        member.groups.append(group)
+        member.groups.add(group)
         members.append(member)
     return members
 

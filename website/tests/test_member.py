@@ -16,13 +16,13 @@ class MemberTests(TestCase):
         # Create some dummy data for testing
         # Dummy members
         alice = Member(name='Alice', password='alice123', db=self.test_db, email="alice@gmail.cm", phone_number="+69420420")
-        alice.groups.append(GroupType.SALES)
+        alice.groups.add(GroupType.SALES)
         self.test_db.insert('members', alice)
         self.test_db.insert('members', Member(name='Bob', password='bob123', db=self.test_db, email="bob123@gmail.com", phone_number="+4598126578"))
 
         # Setup a Member instance for tests
         self.member = Member(name='John Doe', password='password123', db=self.test_db, email="JoDo@hotmail.com", phone_number="+4512345678")
-        self.member.groups.append(GroupType.SALES)
+        self.member.groups.add(GroupType.SALES)
 
         # Dummy shifts
         shift1 = Shift(self.test_db, start_date=datetime.now() + timedelta(days=8), end_date=datetime.now() + timedelta(days=8,hours=4), 
@@ -45,7 +45,7 @@ class MemberTests(TestCase):
         another_member: Member = self.test_db.get("members", [Condition("name", "Alice")])[0]
         another_member.book_shift(1)
         another_member2: Member = self.test_db.get("members", [Condition("name", "Bob")])[0]
-        another_member2.groups.append(GroupType.SALES)
+        another_member2.groups.add(GroupType.SALES)
         another_member2.book_shift(1)
         with self.assertRaises(ExceedingCapacityException):
             self.member.book_shift(1)

@@ -1,4 +1,4 @@
-from ast import Set
+from typing import Set
 
 from ..models.custom_exception import InvalidGroupException
 from .member import Member
@@ -10,7 +10,7 @@ from typing import List
 from website.models import shift_creator
 
 class Super(Member):
-    def __init__(self, name: str, password: str, db: Database, email: str, phone_number: str, super_groups: List[GroupType], shift_creator: ShiftCreator):
+    def __init__(self, name: str, password: str, db: Database, email: str, phone_number: str, super_groups: Set[GroupType], shift_creator: ShiftCreator):
         super().__init__(name, password, db, email, phone_number)
         self.is_super = True
         self.super_groups: Set[GroupType] = super_groups
@@ -27,7 +27,7 @@ class Super(Member):
         _super = self.db.get("members", [Condition("id", member_id)])[0]
         if group in _super.super_groups:
             raise ValueError("Super was already part of that group")
-        _super.super_groups.append(group)
+        _super.super_groups.add(group)
         self.db.update("members", [Condition("id", member_id)], {"super_groups": _super.super_groups})
     
     def promote_to_super(self, member_id: int, super_groups: List[GroupType]) -> None:
@@ -50,7 +50,7 @@ class Super(Member):
     def add_member_to_group(self, member_id: int, group: GroupType) -> None:
         member1 = self._get_element_by_id("members", member_id)
         if group not in member1.groups:
-            member1.groups.append(group)
+            member1.groups.add(group)
             self.db.update("members", [Condition("id", member_id)], {"groups": member1.groups})
     
     def remove_member_from_group(self, member_id: int, group: GroupType) -> None:

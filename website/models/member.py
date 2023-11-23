@@ -1,4 +1,4 @@
-from typing import List, Dict
+from typing import Set, Dict
 from datetime import datetime
 from datetime import timedelta
 from .password_protection import hash_password
@@ -18,7 +18,7 @@ class Member:
         self.password: any = hash_password(password)
         self.hiring_date: datetime = datetime.now()
         self.obtained_free_tickets: int = 0
-        self.groups: List[GroupType] = []
+        self.groups: Set[GroupType] = set()
         self.shifts_completed: Dict[int] = {group_type: 0 for group_type in GroupType}
         self.is_super = False
         self.email = email
