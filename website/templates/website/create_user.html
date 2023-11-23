@@ -8,6 +8,28 @@
 {% endblock %}
 
 {% block admin_content %}
-<h2>Create user page</h2>
+
+
+<div class="cont">
+    <h2>Create user page</h2>
+    <form action="process_create_user", method="POST">
+        <div class="sign_up">
+            <label for="name">Name:</label>
+            <input type="text" placeholder="Enter Name" name="name" required>
+
+            <label for="password">Email:</label>
+            <input type="text" placeholder="Enter Email" name="email" required>
+
+            <label for="password">Password:</label>
+            <input type="text" placeholder="Enter password" name="password" required>
+
+            <label for="phone_number">phone number:</label>
+            <input type="text" placeholder="Enter phone number" name="phone_number" required>
+        </div>
+
+        <button type="submit">Create user</button>
+    </form>
+</div>
+
 
 {% endblock %}

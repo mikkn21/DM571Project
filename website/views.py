@@ -15,9 +15,21 @@ from website.dummy_database import create_dummy_database
 
 db = create_dummy_database()
 
+datetime_argument_format = "%y-%m-%d"
+date_format = "%d/%m/%Y"
+
 @require_login
 def index(request, context, member):
-    start_date, end_date = get_week_datetimes(datetime.now())
+    if request.method != "GET":
+        return redirect(login_page)
+
+    base_date = request.GET.get("date")
+    if base_date != None:
+        base_date = datetime.strptime(base_date, datetime_argument_format)
+    else:
+        base_date = datetime.now()
+
+    start_date, end_date = get_week_datetimes(base_date)
     schedule: Schedule = member.get_full_schedule(start_date, end_date)
 
     shifts_and_shows = schedule.shifts + schedule.shows
@@ -39,6 +51,10 @@ def index(request, context, member):
 
     shifts_and_shows = [(isinstance(shift_or_show, Shift), shift_or_show) for shift_or_show in shifts_and_shows] # map list to (is_shift, shift_or_show)
     context["shifts_and_shows"] = shifts_and_shows
+    context["start_date"] = start_date.strftime(date_format)
+    context["end_date"] = (end_date - timedelta(seconds=1)).strftime(date_format)
+    context["next_date"] = (end_date + timedelta(days=1)).strftime(datetime_argument_format)
+    context["previous_date"] = (start_date - timedelta(days=1)).strftime(datetime_argument_format)
     return HttpResponse(render(request, "website/schedule.html", context))
 
 def get_week_datetimes(datetime_in_week: datetime):
@@ -90,13 +106,6 @@ def about_supers(request, context, super):
     return HttpResponse(render(request, "website/about_supers.html", context))
 
 def login_page(request):
-    return HttpResponse(render(request, "website/login.html"))
-
-@require_super_login
-def super(request, context, super):
-    return HttpResponse(render(request, "website/super.html", context))
-
-def process_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -107,9 +116,6 @@ def process_login(request):
         member = members[0]
 
         password_is_correct = check_password(password, member.password)
-        print(member.name)
-        print(member.password)
-        print(password_is_correct)
 
         if password_is_correct:
             request.session["member"] = {}
@@ -117,11 +123,12 @@ def process_login(request):
             request.session["member"]["name"] = member.name
             request.session["member"]["is_super"] = member.is_super
             return redirect(index)
-        else:
-            return redirect(login_page)
 
-    # Handle GET requests or other cases
-    return render(request, 'website/login.html')
+    return HttpResponse(render(request, "website/login.html"))
+
+@require_super_login
+def super(request, context, super):
+    return HttpResponse(render(request, "website/super.html", context))
 
 def logout(request):
     if "member" in request.session:
@@ -132,6 +139,11 @@ def logout(request):
 @require_super_login
 def create_user(request, context, super):
     return HttpResponse(render(request, "website/create_user.html", context))
+
+@require_super_login
+def process_create_user(request, context, super):
+    pass 
+
 
 @require_super_login
 def create_show(request, context, super):
