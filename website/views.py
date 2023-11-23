@@ -138,11 +138,18 @@ def logout(request):
 
 @require_super_login
 def create_user(request, context, super):
+    if request.method == "POST":
+        name = request.POST.get("name")
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+        password = request.POST.get("password")
+        phone_number = request.POST.get("phone_number")
+        member = Member(name, password, db, email, phone_number)
+        db.insert("members", member)
+    
     return HttpResponse(render(request, "website/create_user.html", context))
 
-@require_super_login
-def process_create_user(request, context, super):
-    pass 
+
 
 
 @require_super_login

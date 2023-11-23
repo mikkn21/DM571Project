@@ -4,28 +4,36 @@
 {% block title %} Create Show {% endblock %}
 
 {% block admin_styles %}
-    <link rel="stylesheet" href="{% static 'website/create_show.css' %}" />
+    <link rel="stylesheet" href="{% static 'website/create_base.css' %}" />
 {% endblock %}
 
 {% block admin_content %}
-<h2>Create Show</h2>
+<div class="cont">
+    <h2>Create Show</h2>
 
-<form action="process_create_user", method="POST">
-    <div class="sign_up">
-        <label for="name">Name:</label>
-        <input type="text" placeholder="Enter Name" name="name" required>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="inputs">
+            <label for="name">Title:</label>
+            <input type="text" placeholder="Enter Title" name="title" required>
 
-        <label for="password">Email:</label>
-        <input type="text" placeholder="Enter Email" name="email" required>
+            <label for="show-type">Show Type:</label>
+            <select name="show-type">
+                <option value="no-value" disabled selected>Select Show Type</option>
+                <option value="movie">Movie</option>
+                <option value="premiere">Premiere</option>
+                <option value="event">Event</option>
+            </select>
+            
+            <label for="start-datetime">Start Date and Time:</label>
+            <input type="datetime-local" name="start-datetime" required>
 
-        <label for="password">Password:</label>
-        <input type="text" placeholder="Enter password" name="password" required>
+            <label for="end-datetime">End Date and Time:</label>
+            <input type="datetime-local" name="end-datetime" required>
+        </div>
 
-        <label for="phone_number">phone number:</label>
-        <input type="text" placeholder="Enter phone number" name="phone_number" required>
-    </div>
-
-    <button type="submit">Create user</button>
-</form>
+        <button type="submit">Create show</button>
+    </form>
+</div>
 
 {% endblock %}
