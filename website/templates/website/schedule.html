@@ -26,19 +26,21 @@
             <p>Show</p>
         </div>
     </div>
-    <div>
+    <div id="schedule-controls-container">
         <p>{{ start_date }} - {{ end_date }}</p>
-        <form method="GET" action="">
-            <input type="hidden" name="date" value="{{ previous_date }}">
-            <button type="submit">Previous Week</button>
-        </form>
-        <form method="GET" action="">
-            <button type="submit">Current Week</button>
-        </form>
-        <form method="GET" action="">
-            <input type="hidden" name="date" value="{{ next_date }}">
-            <button type="submit">Next Week</button>
-        </form>
+        <div id="schedule-controls">
+            <form method="GET" action="">
+                <input type="hidden" name="date" value="{{ previous_date }}">
+                <button type="submit">Previous Week</button>
+            </form>
+            <form method="GET" action="">
+                <button type="submit">Current Week</button>
+            </form>
+            <form method="GET" action="">
+                <input type="hidden" name="date" value="{{ next_date }}">
+                <button type="submit">Next Week</button>
+            </form>
+        </div>
     </div>
     <div id="schedule-container">
         {% for is_shift, shift_or_show in shifts_and_shows %}

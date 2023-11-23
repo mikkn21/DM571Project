@@ -2,7 +2,6 @@
 from datetime import datetime
 from datetime import timedelta
 from .models import *
-from .models.super import Super
 
 from itertools import combinations
 

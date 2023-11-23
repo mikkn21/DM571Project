@@ -4,6 +4,7 @@ from .show import Show
 from .enum_show_type import ShowType
 from .enum_group import GroupType
 from .member import Member
+from .super import Super
 from .schedule import Schedule
 from .database import Database
 from .custom_exception import *
