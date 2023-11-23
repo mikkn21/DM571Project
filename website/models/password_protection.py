@@ -1,6 +1,6 @@
 import bcrypt
 
-def hash_password(password: str) -> any:
+def hash_password(password: str) -> bytes:
     # Generate a salt
     salt = bcrypt.gensalt()
     

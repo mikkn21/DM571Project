@@ -149,6 +149,7 @@ class MemberTests(TestCase):
         self.test_db.insert("members",self.member)
         john: Member = self.test_db.get("members", [Condition("id", self.member.id)])[0]
         self.assertEqual(john.email, self.member.email)
+        self.assertEqual(self.test_db.get("members", [Condition("email", "alice@gmail.cm")])[0].email, "alice@gmail.cm")
         
     def test_unique_email_failed(self):
         self.test_db.insert("members",self.member)

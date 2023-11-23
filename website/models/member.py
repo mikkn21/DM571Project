@@ -15,7 +15,7 @@ class Member:
         self.__check_unique_email(email)
         self.id: int = self.__create_id()
         self.name: str = name
-        self.password: any = hash_password(password)
+        self.password: bytes = hash_password(password)
         self.hiring_date: datetime = datetime.now()
         self.obtained_free_tickets: int = 0
         self.groups: Set[GroupType] = set()
@@ -55,7 +55,7 @@ class Member:
         return self.obtained_free_tickets
 
     # should be locked while modifying database
-    def book_shift(self, shift_id: int):
+    def book_shift(self, shift_id: int) -> None:
         shift: "Shift" = self._get_element_by_id("shifts", shift_id)
         if len(shift.booked_members) >= shift.member_capacity:
             raise ExceedingCapacityException("Max capacity of members already reached, booking denied")
@@ -72,7 +72,7 @@ class Member:
             self.db.update("shifts", [Condition("id", shift.id)], {"booked_members": shift.booked_members})
 
     # should be locked while modifying database
-    def cancel_shift(self, shift_id: int):
+    def cancel_shift(self, shift_id: int) -> None:
         shift: "Shift" = self._get_element_by_id("shifts", shift_id)
         if shift.end_date < datetime.now() + timedelta(days=7):
             raise OutdatedActionException("Member attempted to cancel a shift that is either too old or within a week")

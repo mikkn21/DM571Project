@@ -20,7 +20,7 @@ class Super(Member):
         member = self._get_element_by_id("members", member_id)
         self.db.update("members", [Condition("id", member_id)], {"obtained_free_tickets": member.obtained_free_tickets+1})
 
-    def create_shift(self, shift: Shift):
+    def create_shift(self, shift: Shift) -> None:
         self.__shift_creator.create_shift(shift)
 
     def add_super_to_group(self, member_id: int, group: GroupType) -> None:
@@ -30,7 +30,7 @@ class Super(Member):
         _super.super_groups.add(group)
         self.db.update("members", [Condition("id", member_id)], {"super_groups": _super.super_groups})
     
-    def promote_to_super(self, member_id: int, super_groups: List[GroupType]) -> None:
+    def promote_to_super(self, member_id: int, super_groups: Set[GroupType]) -> None:
         if not super_groups:
             raise InvalidGroupException("No groups to be super for was given. List must not be empty")
         member = self._get_element_by_id("members", member_id)
