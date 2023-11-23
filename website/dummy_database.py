@@ -2,6 +2,7 @@
 from datetime import datetime
 from datetime import timedelta
 from .models import *
+from .models.super import Super
 
 from itertools import combinations
 
@@ -11,7 +12,7 @@ def create_dummy_database():
     members = __get_members(db)
     for member in members:
         db.insert("members", member)
-    admin = Member("Admin", "admin", db, "admin@gmail.com", "+232323432")
+    admin = Super("Admin", "admin", db, "admin@gmail.com", "+232323432", [GroupType.CLEANING, GroupType.SALES], ShiftCreator(db))
     admin.is_super = True
     db.insert("members", admin)
 
