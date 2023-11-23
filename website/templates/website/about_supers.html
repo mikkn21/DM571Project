@@ -3,9 +3,29 @@
 
 {% block title %} Supers {% endblock %}
 
-{% block style %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'website/list_users.css' %}" />
 {% endblock %}
 
 {% block content %}
-<h1>about Supers</h1>
+<h1>Current Supers</h1>
+
+<div id="members">
+    {% for member in supers %}
+    <div class="member">
+        <div>
+            <h2 class="member-name">{{member.name}}</h2>
+            <div class="member-groups">
+                {% for group in member.groups_str %}
+                <span class="member-group">{{ group }}</span>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="member-info-container">
+            <span>E-Mail:</span><span>{{ member.email }}</span>
+            <span>Phone Number:</span><span>{{ member.phone_number }}</span>
+        </div>
+    </div>
+    {% endfor %}
+</div>
 {% endblock %}

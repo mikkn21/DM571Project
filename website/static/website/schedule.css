@@ -6,6 +6,20 @@ main {
     gap: 2rem;
 }
 
+#schedule-controls-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 5px;
+}
+
+#schedule-controls {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    gap: 20px;
+}
+
 #schedule-container {
     display: grid;
     grid-template-columns: 1fr;

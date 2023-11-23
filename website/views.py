@@ -103,6 +103,12 @@ def shift_is_soon(shift: Shift):
 
 @require_login
 def about_supers(request, context, super):
+
+    supers: List[Super] = db.get("members", [Condition( "is_super", True)])
+    for super in supers:
+        super.groups_str = [group.name for group in super.super_groups]
+    context["supers"] = supers
+    print(supers)
     return HttpResponse(render(request, "website/about_supers.html", context))
 
 def login_page(request):
@@ -110,7 +116,7 @@ def login_page(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
 
-        members = db.get("members", [Condition("id", username, lambda x,y: str(x) == str(y))])
+        members = db.get("members", [Condition("email", username)])
         if len(members) == 0:
             return redirect(login_page)
         member = members[0]
@@ -145,6 +151,12 @@ def create_user(request, context, super):
         password = request.POST.get("password")
         phone_number = request.POST.get("phone_number")
         member = Member(name, password, db, email, phone_number)
+
+        for group in GroupType:
+            value = request.POST.get(group.name.lower())
+            if value == "on":
+                member.groups.add(group)
+
         db.insert("members", member)
     
     return HttpResponse(render(request, "website/create_user.html", context))
@@ -154,6 +166,17 @@ def create_user(request, context, super):
 
 @require_super_login
 def create_show(request, context, super):
+    if request.method == "POST":
+        format_date = "%Y-%m-%dT%H:%M"
+        title = request.POST.get("title")
+        show_type = request.POST.get("show-type")
+        show_type = ShowType[show_type.upper()]
+        print(f"{show_type} + {type(show_type)}")
+        start_date = datetime.strptime(request.POST.get("start-datetime"), format_date )
+        end_date = datetime.strptime(request.POST.get("end-datetime"), format_date )
+        show = Show(db, title, show_type, start_date, end_date)
+        db.insert("shows", show)
+        
     return HttpResponse(render(request, "website/create_show.html", context))
 
 @require_login
