@@ -16,7 +16,7 @@ To help with testing, we have implemented a `dummy_database.py` that includes so
 - Super user:
     - E-Mail: admin@gmail.com
     - Password: admin
-    - Note that this user is a Super user and is not a part o any group themselves.
+    - Note that this user is a Super user and is not a part of any group themselves.
 
 # How to make test
 Make a file in the website/tests folder and it will be run by the tests.
