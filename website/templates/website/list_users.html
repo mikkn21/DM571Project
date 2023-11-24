@@ -26,6 +26,10 @@
             <span>E-Mail:</span><span>{{ member.email }}</span>
             <span>Phone Number:</span><span>{{ member.phone_number }}</span>
         </div>
+        <form method="GET" action="/">
+            <input type="hidden" name="member-id" value="{{member.id}}">
+            <button type="submit">Schedule</button>
+        </form>
     </div>
     {% endfor %}
 </div>
