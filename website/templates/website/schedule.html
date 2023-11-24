@@ -8,6 +8,7 @@
 {% endblock %}
 
 {% block content %}
+    <h1>{{ schedule_name }}</h1>
     <div id="schedule-legend">
         <div class="schedule-legend-item">
             <div class="schedule-item-shift"></div>
@@ -30,13 +31,16 @@
         <p>{{ start_date }} - {{ end_date }}</p>
         <div id="schedule-controls">
             <form method="GET" action="">
+                <input type="hidden" name="member-id" value="{{ member_id }}">
                 <input type="hidden" name="date" value="{{ previous_date }}">
                 <button type="submit">Previous Week</button>
             </form>
             <form method="GET" action="">
+                <input type="hidden" name="member-id" value="{{ member_id }}">
                 <button type="submit">Current Week</button>
             </form>
             <form method="GET" action="">
+                <input type="hidden" name="member-id" value="{{ member_id }}">
                 <input type="hidden" name="date" value="{{ next_date }}">
                 <button type="submit">Next Week</button>
             </form>
@@ -77,6 +81,7 @@
             {% endif %}
             {% if shift_or_show.is_cancellable %}
             <form method="GET" action="/cancel-shift">
+                <input type="hidden" name="member-id" value="{{ member_id }}">
                 <input type="hidden" name="shift-id" value="{{ shift_or_show.id }}" />
                 <button type="submit">Cancel</button>
             </form>
