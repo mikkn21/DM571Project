@@ -4,8 +4,19 @@ Use python version 3.11, and then execute the below command:
 pip install -r requirements.txt
 ```
 
-# TODO: database
-- we need to make sure that members, shifts and shows, gets an id base on the online database. 
+# Logins 
+
+To help with testing, we have implemented a `dummy_database.py` that includes some users:
+- Sales user:
+    - E-Mail: sales@gmail.com
+    - Password: sales
+- PR user:
+    - E-Mail: pr@gmail.com
+    - Password: pr
+- Super user:
+    - E-Mail: admin@gmail.com
+    - Password: admin
+    - Note that this user is a Super user and is not a part o any group themselves.
 
 # How to make test
 Make a file in the website/tests folder and it will be run by the tests.
