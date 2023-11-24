@@ -23,6 +23,18 @@ def index(request, context, member):
     if request.method != "GET":
         return redirect(login_page)
 
+    context["schedule-name"] = "Your Schedule"
+
+    schedule_is_for_current_user = True
+    member_id = request.GET.get("member-id")
+    if member.is_super && member_id != None:
+        members = db.get("members", [Condition("id", member_id, lambda x, y: str(x) == str(y))])
+        if len(members) > 0:
+            schedule_is_for_current_user = False
+            super_member = member
+            member = members[0]
+            context["schedule-name"] = member.name + "'s Schedule"
+
     base_date = request.GET.get("date")
     if base_date != None:
         base_date = datetime.strptime(base_date, datetime_argument_format)
@@ -44,8 +56,8 @@ def index(request, context, member):
         shift_or_show.end_date_hour_min = shift_or_show.end_date.strftime("%H:%M")
         if isinstance(shift_or_show, Shift):
             shift_or_show.booked_members_count = len(shift_or_show.booked_members)
-            shift_or_show.is_bookable = shift_is_bookable(member, shift_or_show)
-            shift_or_show.is_cancellable = shift_is_cancellable(member, shift_or_show)
+            shift_or_show.is_bookable = shift_is_bookable(member, shift_or_show, schedule_is_for_current_user)
+            shift_or_show.is_cancellable = shift_is_cancellable(member, shift_or_show, schedule_is_for_current_user)
             shift_or_show.is_booked = shift_is_booked(member, shift_or_show)
         last_shift_or_show = shift_or_show
 
@@ -68,7 +80,10 @@ def get_week_datetimes(datetime_in_week: datetime):
     min_time = datetime.min.time()
     return datetime.combine(start_date, min_time), datetime.combine(end_date, min_time)
 
-def shift_is_bookable(member: Member, shift: Shift):
+def shift_is_bookable(member: Member, shift: Shift, schedule_is_for_current_user: bool):
+    if not schedule_is_for_current_user:
+        return False
+
     if len(shift.booked_members) >= shift.member_capacity:
         return False
 
@@ -86,7 +101,10 @@ def shift_is_bookable(member: Member, shift: Shift):
 def shift_is_booked(member: Member, shift: Shift):
     return member.id in shift.booked_members
 
-def shift_is_cancellable(member: Member, shift: Shift):
+def shift_is_cancellable(member: Member, shift: Shift, schedule_is_for_current_user: bool):
+    if not schedule_is_for_current_user && shift_is_booked(member, shift):
+        return True
+
     if shift_is_old(shift):
         return False
 
