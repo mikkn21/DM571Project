@@ -1,6 +1,6 @@
 # DM571 Software Engineering Project - Online Booking System
 
-This repository contains the project report and related artifacts for the [DM571](https://odin.sdu.dk/sitecore/index.php?a=fagbesk&id=136536&lang=en&listid=) Software Engineering course project, done in colaboration with @jonas-bork](https://github.com/jonas-bork), [@sofusl90](https://github.com/sofusl90) and [@Caerullean ](https://github.com/Caerullean). 
+This repository contains the project report and related artifacts for the [DM571](https://odin.sdu.dk/sitecore/index.php?a=fagbesk&id=136536&lang=en&listid=) Software Engineering course project, done in colaboration with [@jonas-bork](https://github.com/jonas-bork), [@sofusl90](https://github.com/sofusl90) and [@Caerullean ](https://github.com/Caerullean). 
 
 The project involved designing and documenting an online booking/scheduling system for volunteers at a fictional community cinema ("Local Cinema"), based on stakeholder interviews and course principles.
 
@@ -14,6 +14,11 @@ Based on an interview with the "Chairman" of Local Cinema, the project aimed to 
 *   Providing "Super" users (Supers) with tools to manage shifts, member eligibility, and scheduling defaults.
 *   Ensuring accessibility and usability, particularly for potentially tech-illiterate volunteers.
 *   Establishing a foundation for future features like integration with ticketing systems or third-party calendars.
+
+**For full details on the requirements, please see the official assignment description:**
+
+➡️ **[Project description](./assets/ProjectDescription.md)** ⬅️
+
 
 ## Project Structure (3 Parts)
 
@@ -55,7 +60,7 @@ While the provided description focuses heavily on Parts 1 & 2, the formal requir
 
 The complete analysis, design decisions, diagrams, specifications, and discussions are documented in the project report PDF.
 
-➡️ **[View the DM571 Project Report](./DM571_Project.pdf)** ⬅️
+➡️ **[View the DM571 Project Report](./assets/DM571_Project_report.pdf)** ⬅️
 
 
 
