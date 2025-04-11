@@ -6,6 +6,10 @@ The project involved designing and documenting an online booking/scheduling syst
 
 **Note:** The primary deliverable in this repository is the project report PDF, which details our analysis, design, and implementation considerations.
 
+> [!IMPORTANT]
+> Please note that the git commit history might not fully reflect the individual contributions, as we pair programmed using the [VS Code Live Share extension](https://marketplace.visualstudio.com/items/?itemName=MS-vsliveshare.vsliveshare).
+
+
 ## Project Overview & Goal
 
 Based on an interview with the "Chairman" of Local Cinema, the project aimed to replace manual/disparate shift scheduling methods with a cohesive, web-based system. The core goals included:
