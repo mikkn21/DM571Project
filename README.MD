@@ -66,7 +66,12 @@ The complete analysis, design decisions, diagrams, specifications, and discussio
 
 ➡️ **[View the DM571 Project Report](./assets/DM571_Project_report.pdf)** ⬅️
 
+## User Interface Preview
 
+Here's a glimpse of the main schedule view in the Django-based web interface:
+![Screenshot of the main schedule view showing weekly shifts](./assets/Cool_website.png)
+
+---
 
 # Install Dependencies
 Use python version 3.11, and then execute the below command:
