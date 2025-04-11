@@ -1,6 +1,6 @@
 # DM571 Software Engineering Project - Online Booking System
 
-This repository contains the project report and related artifacts for the DM571 Software Engineering course project, completed by [Your Group Members Names - e.g., Jonas B. J., Malthe H. P., Mikkel N., Sofus H. L.].
+This repository contains the project report and related artifacts for the [DM571](https://odin.sdu.dk/sitecore/index.php?a=fagbesk&id=136536&lang=en&listid=) Software Engineering course project, completed by Your Group Members Names - e.g., Jonas B. J., Malthe H. P., Mikkel N., Sofus H. L.].
 
 The project involved designing and documenting an online booking/scheduling system for volunteers at a fictional community cinema ("Local Cinema"), based on stakeholder interviews and course principles.
 
