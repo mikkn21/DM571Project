@@ -66,6 +66,9 @@ The complete analysis, design decisions, diagrams, specifications, and discussio
 
 ➡️ **[View the DM571 Project Report](./assets/DM571_Project_report.pdf)** ⬅️
 
+> [!Note]
+> For a deeper dive into project details like the prioritized backlog, UML/C4 system models, the full API specification, and unit test coverage reports, please consult the complete project report PDF linked above.
+
 ## User Interface Preview
 
 Here's a glimpse of the main schedule view in the Django-based web interface:
