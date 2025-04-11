@@ -2,9 +2,9 @@
 
 This repository contains the project report and related artifacts for the [DM571](https://odin.sdu.dk/sitecore/index.php?a=fagbesk&id=136536&lang=en&listid=) Software Engineering course project, done in colaboration with [@jonas-bork](https://github.com/jonas-bork), [@sofusl90](https://github.com/sofusl90) and [@Caerullean ](https://github.com/Caerullean). 
 
-The project involved designing and documenting an online booking/scheduling system for volunteers at a fictional community cinema ("Local Cinema"), based on stakeholder interviews and course principles.
+The project involved designing and documenting an online booking/scheduling system for volunteers at a fictional community cinema ("Local Cinema"), based on stakeholder interviews and course principles. Key implementation features include a **frontend built with [Django](https://www.djangoproject.com)** and a **custom Python in-memory data store** incorporating security measures like **bcrypt**.
 
-**Note:** The primary deliverable in this repository is the project report PDF, which details our analysis, design, and implementation considerations.
+**Please see the included [DM571_Project_report.pdf](assets/DM571_Project_report.pdf) report for full details** on requirements analysis, design choices, implementation, and testing.
 
 > [!IMPORTANT]
 > Please note that the git commit history might not fully reflect the individual contributions, as we pair programmed using the [VS Code Live Share extension](https://marketplace.visualstudio.com/items/?itemName=MS-vsliveshare.vsliveshare).
